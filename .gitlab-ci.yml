@@ -21,6 +21,7 @@ variables:
 # This template uses jdk8 for verifying and deploying images
 image: maven:3.3.9-jdk-8
 before_script:
+   - curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
    - apt-get install --yes nodejs
    - npm install -g @angular/cli
 
