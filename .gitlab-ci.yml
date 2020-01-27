@@ -45,21 +45,34 @@ cache:
 # For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for more details.
 # Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
 # For `master` branch run `mvn deploy` automatically.
-test-client:jdk8:
+
+test:
   stage: test
   script:
     - 'cd client'
     - 'npm install'
-    - 'ng test --watch=false --browsers=ChromeHeadless'
+    - 'ng test'
     - 'cd ..'
-  only:
-    - master
-    
-test-server:jdk8:
-  stage: test
-  script:
     - 'cd server'
     - 'mvn $MAVEN_CLI_OPTS test'
     - 'cd ..'
+  only:
+    - master
+
+deploy-server:
+  stage: deploy
+  script:
+    - 'cd client'
+    - 'npm install'
+    - 'ng build --prod'
+    - 'cd dist/client'
+    - 'mkdir -p ../../../server/src/main/resources/static && cp -r * ../../../server/src/main/resources/static'
+    - 'cd ../../../'
+    - 'cd server'
+    - 'mvn $MAVEN_CLI_OPTS clean heroku:deploy'
+  artifacts:
+    paths:
+        - server/target/dimo-0.0.1-SNAPSHOT.jar
+    expire_in: 1 week
   only:
     - master
