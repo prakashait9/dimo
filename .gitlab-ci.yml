@@ -48,7 +48,7 @@ verify:jdk8:
 # Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
 # For `master` branch run `mvn deploy` automatically.
 test:jdk8:
-  stage: test-client
+  stage: test
   script:
     - 'cd client'
     - 'ng test'
