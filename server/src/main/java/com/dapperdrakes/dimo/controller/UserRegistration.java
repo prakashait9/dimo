@@ -8,6 +8,6 @@ public class UserRegistration {
 
     @PostMapping("/signUp")
     public String signUp(@RequestBody User user){
-        return "";
+        return "0000";
     }
 }
