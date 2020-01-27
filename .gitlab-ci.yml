@@ -47,7 +47,7 @@ verify:jdk8:
 # For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for more details.
 # Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
 # For `master` branch run `mvn deploy` automatically.
-test-client:jdk8:
+test:jdk8:
   stage: test-client
   script:
     - 'cd client'
