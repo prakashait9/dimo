@@ -19,7 +19,7 @@ variables:
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
 
 # This template uses jdk8 for verifying and deploying images
-image: karodevijay/mvn_node:2.0
+image: karodevijay/mvn_node:3.0
 
 
 # Cache downloaded dependencies and plugins between builds.
@@ -30,27 +30,36 @@ cache:
 
 # For merge requests do not `deploy` but only run `verify`.
 # See https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
-.verify: &verify
-  stage: test
-  script:
-    - 'mvn $MAVEN_CLI_OPTS verify'
-  except:
-    - master
+# .verify: &verify
+#   stage: test
+#   script:
+#     - 'mvn $MAVEN_CLI_OPTS verify'
+#   except:
+#     - master
 
-# Verify merge requests using JDK8
-verify:jdk8:
-  <<: *verify
+# # Verify merge requests using JDK8
+# verify:jdk8:
+#   <<: *verify
 
 # To deploy packages from CI, create a ci_settings.xml file
 # For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for more details.
 # Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
 # For `master` branch run `mvn deploy` automatically.
-test:jdk8:
+test-client:jdk8:
   stage: test
   script:
     - 'cd client'
     - 'npm install'
     - 'ng test --watch=false --browsers=ChromeHeadless'
+    - 'cd ..'
+  only:
+    - master
+    
+test-server:jdk8:
+  stage: test
+  script:
+    - 'cd server'
+    - 'mvn $MAVEN_CLI_OPTS test'
     - 'cd ..'
   only:
     - master
