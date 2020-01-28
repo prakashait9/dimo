@@ -11,7 +11,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule,RouterTestingModule.withRoutes([]), HttpClientModule],
+      imports: [ReactiveFormsModule, RouterTestingModule.withRoutes([]), HttpClientModule],
       declarations: [LoginComponent]
     })
       .compileComponents();
@@ -47,17 +47,17 @@ describe('LoginComponent', () => {
     expect(component.user.password.errors.minlength.actualLength).toBe(1);
   });
 
-  it('password should match confirmPassword',function(){
-      component.user.password.setValue("S123456");
-      component.user.confirmPassword.setValue("S1234567");
-      component.onSubmit();
-      expect(component.user.confirmPassword.errors.mustMatch).toBe(true);
+  it('password should match confirmPassword', function() {
+    component.user.password.setValue("S123456");
+    component.user.confirmPassword.setValue("S1234567");
+    component.onSubmit();
+    expect(component.user.confirmPassword.errors.mustMatch).toBe(true);
   });
 
-  it('should throw an error for invalid email',function(){
-      component.user.email.setValue("abcgmail.com");
-      component.onSubmit();
-      expect(component.user.email.errors.email).toBe(true);
+  it('should throw an error for invalid email', function() {
+    component.user.email.setValue("abcgmail.com");
+    component.onSubmit();
+    expect(component.user.email.errors.email).toBe(true);
   });
 
 });

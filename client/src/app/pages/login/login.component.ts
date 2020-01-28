@@ -14,12 +14,13 @@ import { LoginService } from './login.service';
 
 export class LoginComponent implements OnInit {
   signupForm: FormGroup;
+  loginForm: FormGroup;
   submitted = false;
 
   users: any = [];
   constructor(private formBuilder: FormBuilder,
-              private loginService: LoginService,
-              private router: Router) {
+    private loginService: LoginService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -43,7 +44,14 @@ export class LoginComponent implements OnInit {
         validator: MustMatch('password', 'confirmPassword')
       });
 
-//   this.getUser();
+
+
+      this.loginForm = this.formBuilder.group({
+        email: ['',
+          [Validators.required,
+          Validators.email]],
+        password: ['', [Validators.required]]
+      });
   }
 
   get user() { return this.signupForm.controls; }
@@ -57,22 +65,39 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginService.signupUser(this.signupForm.value)
-                //.pipe(first())
-                .subscribe(
-                    data => {
-                       // this.alertService.success('Registration successful', true);
-                       // this.router.navigate(['/login']);
-                       console.log("Success");
-                       this.router.navigate(['/dashboard']);
-                    },
-                    error => {
-                       // this.alertService.error(error);
-                      //  this.loading = false;
-                      console.log("error");
-                      this.router.navigate(['/dashboard']);
-                    });
+      //.pipe(first())
+      .subscribe(
+        data => {
+          // this.alertService.success('Registration successful', true);
+          // this.router.navigate(['/login']);
+          console.log("Success");
+          this.router.navigate(['/dashboard']);
+        },
+        error => {
+          // this.alertService.error(error);
+          //  this.loading = false;
+          console.log("error");
+          this.router.navigate(['/dashboard']);
+        });
 
 
     //alert("Success!" + this.signupForm.value);
+  }
+
+  selectTab(tabName) {
+    console.log(tabName);
+    if (tabName == 'login') {
+      document.getElementById('logintab').style.display = 'block';
+      document.getElementById('pills-login-tab').classList.add('active');
+      document.getElementById('signuptab').style.display = 'none';
+      document.getElementById('pills-signup-tab').classList.remove('active');
+    }
+    else {
+      document.getElementById('logintab').style.display = 'none';
+      document.getElementById('pills-login-tab').classList.remove('active');
+      document.getElementById('signuptab').style.display = 'block';
+      document.getElementById('pills-signup-tab').classList.add('active');
+    }
+    return false;
   }
 }
