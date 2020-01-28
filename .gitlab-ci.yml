@@ -56,8 +56,7 @@ test:
     - 'cd server'
     - 'mvn $MAVEN_CLI_OPTS test'
     - 'cd ..'
-  only:
-    - master
+
 
 deploy-server:
   stage: deploy
