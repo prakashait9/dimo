@@ -1,82 +1,60 @@
-import {Component, OnInit}from '@angular/core';
-import {FormGroup, FormControl , Validators}from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+
+import { MustMatch } from '../../_helpers/must-match.validators';
 
 
 @Component({
-selector: 'app-login',
-templateUrl: './login.component.html',
-styleUrls: ['./login.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 
 export class LoginComponent implements OnInit {
+  signupForm: FormGroup;
+  submitted = false;
 
-firstName: string;
-lastName: string;
-email: string;
-password: string;
-confirmPassword: string;
+  constructor(private formBuilder: FormBuilder) {
+  }
 
-signupForm ;
+  ngOnInit(): void {
+    this.signupForm = this.formBuilder.group({
+      'firstName': ['',
+        [Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50)]
+      ],
+      'lastName': ['',
+        [Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50)]
+      ],
+      email: ['',
+        [Validators.required,
+        Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required],
+    }, {
+        validator: MustMatch('password', 'confirmPassword')
+      });
 
-constructor() {
+  }
 
-
-   }
-
- ngOnInit(): void {
-
-
-
-   this.signupForm = new FormGroup({
-     'firstName': new FormControl(this.firstName, [
-       Validators.required,
-       Validators.minLength(2),
-        Validators.maxLength(50)
-     ]),
-     'lastName': new FormControl(this.lastName, [
-            Validators.required,
-            Validators.minLength(2),
-             Validators.maxLength(50)
-          ]),
-          'email': new FormControl(this.email, [
-                 Validators.required
-
-               ]),
-               'password': new FormControl(this.password, [
-                      Validators.required,
-                      Validators.minLength(8),
-                       Validators.maxLength(32)
-                    ]),
-                    'confirmPassword': new FormControl(this.confirmPassword, [
-                           Validators.required,
-                           Validators.minLength(8),
-                            Validators.maxLength(32)
-                         ]),
-   });
-
- }
-
-
-
-//   signupForm = new FormGroup({
-//     firstName: new FormControl(''),
-//     lastName: new FormControl(''),
-//     email: new FormControl(''),
-//      password: new FormControl(''),
-//         confirmPassword: new FormControl('')
-//
-//   });
+  get user() { return this.signupForm.controls; }
+  
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-   // alert(this.signupForm.value);
+    this.submitted = true;
+    if (this.signupForm.invalid) {
+
+      return;
+    }
+
+    alert("Success!" + this.signupForm.value);
   }
 
   validateForm() {
     alert("working");
-
-
-
   }
 
 }

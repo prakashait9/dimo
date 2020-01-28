@@ -21,13 +21,22 @@
     <div class="col-lg-6 col-md-8">
       <div class="card bg-secondary shadow border-0">
         <div class="card-body px-lg-5 py-lg-5">
-          <form role="form" name="signup" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <form role="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <div class="input-group input-group-alternative mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                 </div>
-                <input class="form-control"  formControlName="firstName" placeholder="First name" type="text">
+                <input class="form-control" formControlName="firstName" placeholder="First name" type="text" [ngClass]="{ 'is-invalid': submitted && user.firstName.errors }" />
+                <div *ngIf="submitted && user.firstName.errors" class="invalid-feedback">
+                  <div *ngIf="user.firstName.errors.required">First name is required</div>
+                  <div *ngIf="user.firstName.errors.minlength">
+                    First name must be at least 2 characters long.
+                  </div>
+                  <div *ngIf="user.firstName.errors.maxlength">
+                    First name cannot be more than 50 characters long.
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -35,15 +44,40 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                 </div>
-                <input class="form-control"  formControlName="lastName" placeholder="Last name" type="text">
+                <input class="form-control" formControlName="lastName" placeholder="Last name" type="text" [ngClass]="{ 'is-invalid': submitted && user.lastName.errors }" />
+                <div *ngIf="submitted && user.lastName.errors" class="invalid-feedback">
+                  <div *ngIf="user.lastName.errors.required">Last name is required</div>
+                  <div *ngIf="user.lastName.errors.minlength">
+                    Last name must be at least 2 characters long.
+                  </div>
+                  <div *ngIf="user.firstName.errors.maxlength">
+                    Last name cannot be more than 50 characters long.
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group">
               <div class="input-group input-group-alternative mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                  <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                 </div>
-                <input class="form-control"  formControlName="email" email placeholder="Email" type="email">
+                <input type="text" formControlName="email" placeholder="Email" class="form-control" [ngClass]="{ 'is-invalid': submitted && user.email.errors }" />
+                <div *ngIf="submitted && user.email.errors" class="invalid-feedback">
+                  <div *ngIf="user.email.errors.required">Email is required</div>
+                  <div *ngIf="user.email.errors.email">Email must be a valid email address</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                </div>
+                <input type="password" formControlName="password" placeholder="Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && user.password.errors }" />
+                <div *ngIf="submitted && user.password.errors" class="invalid-feedback">
+                  <div *ngIf="user.password.errors.required">Password is required</div>
+                  <div *ngIf="user.password.errors.minlength">Password must be at least 6 characters</div>
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -51,19 +85,15 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control"  formControlName="password" placeholder="Password" type="password">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                <input type="password" formControlName="confirmPassword" placeholder="Confirm password" class="form-control" [ngClass]="{ 'is-invalid': submitted && user.confirmPassword.errors }" />
+                <div *ngIf="submitted && user.confirmPassword.errors" class="invalid-feedback">
+                  <div *ngIf="user.confirmPassword.errors.required">Confirm Password is required</div>
+                  <div *ngIf="user.confirmPassword.errors.mustMatch">Passwords must match</div>
                 </div>
-                <input class="form-control"  formControlName="confirmPassword" placeholder="Confirm password" type="password">
               </div>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-primary mt-4" [disabled]="!signupForm.valid" >Sign up</button>
+              <button class="btn btn-primary mt-4">Sign up</button>
             </div>
           </form>
         </div>
