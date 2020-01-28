@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DimoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DimoApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(DimoApplication.class, args);
+    }
 }

@@ -9,5 +9,4 @@ class DimoApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
