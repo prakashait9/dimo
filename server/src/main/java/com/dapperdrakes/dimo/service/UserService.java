@@ -2,11 +2,10 @@ package com.dapperdrakes.dimo.service;
 
 
 import com.dapperdrakes.dimo.dao.UserRepository;
+import com.dapperdrakes.dimo.dao.model.DiMoUser;
 import com.dapperdrakes.dimo.error.UserAlreadyExistException;
-import com.dapperdrakes.dimo.model.User;
+import com.dapperdrakes.dimo.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,11 +15,6 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private SessionRegistry sessionRegistry;
 
     public static final String TOKEN_INVALID = "invalidToken";
     public static final String TOKEN_EXPIRED = "expired";
@@ -31,22 +25,15 @@ public class UserService implements IUserService {
     // API
 
     @Override
-    public com.dapperdrakes.dimo.model.User registerNewUserAccount(final User accountDto) {
+    public DiMoUser registerNewUserAccount(final UserDto accountDto) {
         if (emailExists(accountDto.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email adress: " + accountDto.getEmail());
         }
-        final User user = new User();
-
-        /*user.setFirstName(accountDto.getFirstName());
-        user.setLastName(accountDto.getLastName());
-        user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        user.setEmail(accountDto.getEmail());
-        return userRepository.save(user);*/
-        return user;
+         return userRepository.save(new DiMoUser(accountDto));
     }
 
     @Override
-    public User getUser(final String verificationToken) {
+    public UserDto getUser(final String verificationToken) {
         /*final VerificationToken token = tokenRepository.findByToken(verificationToken);
         if (token != null) {
             return token.getUser();
@@ -57,9 +44,9 @@ public class UserService implements IUserService {
 
 
     @Override
-    public void saveRegisteredUser(final User user) {
+    public void saveRegisteredUser(final UserDto user) {
 
-       // userRepository.save(user);
+      // userRepository.save(user);
     }
 
 
@@ -77,12 +64,12 @@ public class UserService implements IUserService {
 
 
 
-   /* @Override
-    public User findUserByEmail(final String email) {
-        return userRepository.findByEmail(email);
-    }
+//   @Override
+//    public User findUserByEmail(final String email) {
+//        return userRepository.findByEmail(email);
+//    }
 
-   */
+
 
 
     /*@Override
@@ -95,7 +82,7 @@ public class UserService implements IUserService {
 
 
     private boolean emailExists(final String email) {
-        return true; //userRepository.findByEmail(email) != null;
+        return userRepository.findByEmail(email) != null;
     }
 
 

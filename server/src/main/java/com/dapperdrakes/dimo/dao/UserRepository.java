@@ -1,16 +1,14 @@
 package com.dapperdrakes.dimo.dao;
 
 
-public interface UserRepository {
-    void findByEmail(String email);
+import com.dapperdrakes.dimo.dao.model.DiMoUser;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.bind.annotation.PathVariable;
+
+public interface UserRepository extends JpaRepository<DiMoUser, Long> {
+
+    @Query("from User u where u.email=:email")
+    DiMoUser findByEmail(@PathVariable("email") String email);
 
 }
-
-
-/*
-public interface UserRepository extends JpaRepository<User, Long> {
-    void findByEmail(String email);
-
-    @Override
-    void delete(User user);
-}*/

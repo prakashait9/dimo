@@ -1,16 +1,17 @@
 package com.dapperdrakes.dimo.service;
 
 
+import com.dapperdrakes.dimo.dao.model.DiMoUser;
 import com.dapperdrakes.dimo.error.UserAlreadyExistException;
-import com.dapperdrakes.dimo.model.User;
+import com.dapperdrakes.dimo.model.UserDto;
 
 public interface IUserService {
 
-    User registerNewUserAccount(User accountDto) throws UserAlreadyExistException;
+    DiMoUser registerNewUserAccount(UserDto accountDto) throws UserAlreadyExistException;
 
-    User getUser(String verificationToken);
+    UserDto getUser(String verificationToken);
 
-    void saveRegisteredUser(User user);
+    void saveRegisteredUser(UserDto user);
 
     //void deleteUser(User user);
 

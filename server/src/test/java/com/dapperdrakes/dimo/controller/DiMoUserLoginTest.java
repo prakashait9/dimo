@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.atLeast;
 
-public class UserLoginTest {
+public class DiMoUserLoginTest {
 
     @Test
     public void testForNullEmail() {
