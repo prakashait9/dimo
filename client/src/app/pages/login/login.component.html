@@ -87,7 +87,6 @@
                 </div>
                 <input type="password" formControlName="confirmPassword" placeholder="Confirm password" class="form-control" [ngClass]="{ 'is-invalid': submitted && user.confirmPassword.errors }" />
                 <div *ngIf="submitted && user.confirmPassword.errors" class="invalid-feedback">
-                  <div *ngIf="user.confirmPassword.errors.required">Confirm Password is required</div>
                   <div *ngIf="user.confirmPassword.errors.mustMatch">Passwords must match</div>
                 </div>
               </div>
