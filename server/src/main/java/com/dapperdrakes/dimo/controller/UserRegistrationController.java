@@ -20,8 +20,6 @@ public class UserRegistrationController {
     @PostMapping(value = "/signup")
     public GenericResponse registerUserAccount(@Valid @RequestBody UserDto accountInfo) {
 
-        System.out.println(accountInfo.toString());
-
         final DiMoUser registered = userService.registerNewUserAccount(accountInfo);
        // eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), getAppUrl(request)));
         return new GenericResponse("success");

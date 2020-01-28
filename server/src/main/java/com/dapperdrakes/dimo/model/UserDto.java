@@ -57,16 +57,4 @@ public class UserDto {
     public String getEmail() {
         return email;
     }
-
-
-    @Override
-    public String toString() {
-        return "UserDto{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
-                ", matchingPassword='" + matchingPassword + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }
