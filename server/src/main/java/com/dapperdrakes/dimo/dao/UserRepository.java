@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public interface UserRepository extends JpaRepository<DiMoUser, Long> {
 
-    @Query("from User u where u.email=:email")
+    @Query("from DiMoUser u where u.email=:email")
     DiMoUser findByEmail(@PathVariable("email") String email);
 
 }
