@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { MustMatch } from '../../_helpers/must-match.validators';
+import { LoginService } from './login.service';
 
 
 @Component({
@@ -14,7 +16,10 @@ export class LoginComponent implements OnInit {
   signupForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  users: any = [];
+  constructor(private formBuilder: FormBuilder,
+              private loginService: LoginService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -38,10 +43,11 @@ export class LoginComponent implements OnInit {
         validator: MustMatch('password', 'confirmPassword')
       });
 
+//   this.getUser();
   }
 
   get user() { return this.signupForm.controls; }
-  
+
 
   onSubmit() {
     this.submitted = true;
@@ -50,11 +56,23 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    alert("Success!" + this.signupForm.value);
-  }
+    this.loginService.signupUser(this.signupForm.value)
+                //.pipe(first())
+                .subscribe(
+                    data => {
+                       // this.alertService.success('Registration successful', true);
+                       // this.router.navigate(['/login']);
+                       console.log("Success");
+                       this.router.navigate(['/dashboard']);
+                    },
+                    error => {
+                       // this.alertService.error(error);
+                      //  this.loading = false;
+                      console.log("error");
+                      this.router.navigate(['/dashboard']);
+                    });
 
-  validateForm() {
-    alert("working");
-  }
 
+    //alert("Success!" + this.signupForm.value);
+  }
 }
