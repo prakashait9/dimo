@@ -1,8 +1,8 @@
 package com.dapperdrakes.dimo.service;
 
 
-import com.dapperdrakes.dimo.dao.UserRepository;
-import com.dapperdrakes.dimo.dao.model.DiMoUser;
+import com.dapperdrakes.dimo.dao.DimoUserRepository;
+import com.dapperdrakes.dimo.model.DiMoUser;
 import com.dapperdrakes.dimo.error.UserAlreadyExistException;
 import com.dapperdrakes.dimo.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserService implements IUserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private DimoUserRepository userRepository;
 
 
     public static final String TOKEN_INVALID = "invalidToken";
