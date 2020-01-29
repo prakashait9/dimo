@@ -1,52 +1,52 @@
 package com.dapperdrakes.dimo.util;
 
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
+import java.time.LocalDateTime;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class GenericResponse {
 
-    private String message;
-    private String error;
+	private boolean success;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+	private LocalDateTime timestamp;
+	private String error;
+	private Object data;
 
-    public GenericResponse(final String message) {
-        super();
-        this.message = message;
-    }
+	public GenericResponse() {
+		super();
+	}
 
-    public GenericResponse(final String message, final String error) {
-        super();
-        this.message = message;
-        this.error = error;
-    }
+	public GenericResponse(boolean success, String error) {
+		super();
+		this.success = success;
+		this.error = error;
+	}
 
-    public GenericResponse(List<ObjectError> allErrors, String error) {
-        this.error = error;
-        String temp = allErrors.stream().map(e -> {
-            if (e instanceof FieldError) {
-                return "{\"field\":\"" + ((FieldError) e).getField() + "\",\"defaultMessage\":\"" + e.getDefaultMessage() + "\"}";
-            } else {
-                return "{\"object\":\"" + e.getObjectName() + "\",\"defaultMessage\":\"" + e.getDefaultMessage() + "\"}";
-            }
-        }).collect(Collectors.joining(","));
-        this.message = "[" + temp + "]";
-    }
+	public boolean isSuccess() {
+		return success;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
 
-    public void setMessage(final String message) {
-        this.message = message;
-    }
+	public String getError() {
+		return error;
+	}
 
-    public String getError() {
-        return error;
-    }
+	public void setError(String error) {
+		this.error = error;
+	}
 
-    public void setError(final String error) {
-        this.error = error;
-    }
+	public Object getData() {
+		return data;
+	}
+
+	public void setData(Object data) {
+		this.data = data;
+	}
+
+	public LocalDateTime getTimestamp() {
+		return LocalDateTime.now();
+	}
 }
