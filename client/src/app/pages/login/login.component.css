@@ -27,5 +27,8 @@
     height: 158px;
     background-repeat: no-repeat;
     margin: auto;
+}
 
+footer {
+    background-color: #172b4d !important;
 }

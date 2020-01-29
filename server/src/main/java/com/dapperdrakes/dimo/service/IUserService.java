@@ -1,7 +1,7 @@
 package com.dapperdrakes.dimo.service;
 
 
-import com.dapperdrakes.dimo.dao.model.DiMoUser;
+import com.dapperdrakes.dimo.model.DiMoUser;
 import com.dapperdrakes.dimo.error.UserAlreadyExistException;
 import com.dapperdrakes.dimo.model.UserDto;
 
