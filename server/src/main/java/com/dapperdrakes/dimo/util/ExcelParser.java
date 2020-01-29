@@ -44,7 +44,7 @@ public class ExcelParser {
 		movie.setOrigLang(row.getCellText(5));
 		movie.setOrigTitle(row.getCellText(6));
 		movie.setOverview(row.getCellText(7));
-		movie.setPopularity(row.getCellAsNumber(8).isPresent() ? row.getCellAsNumber(8).get() : new BigDecimal(0));
+		movie.setPopularity(row.getCellAsNumber(8).isPresent() ? row.getCellAsNumber(8).get().doubleValue() : new Double(0));
 		movie.setProdCount(prepareProductionCountry(row.getCellAsString(10).get()));
 		movie.setProdComp(prepareProductionCompany(row.getCellAsString(9).get()));
 		movie.setReleaseDate(row.getCellAsDate(11).isPresent() ? Date.from(row.getCellAsDate(11).get().atZone(ZoneId.systemDefault()).toInstant()) :new Date() );
