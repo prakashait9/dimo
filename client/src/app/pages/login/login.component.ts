@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   signUpTab;
   loginLink;
   signUpLink;
-  test;
+  test: Date = new Date();;
 
   users: any = [];
   constructor(private formBuilder: FormBuilder,
@@ -109,15 +109,15 @@ export class LoginComponent implements OnInit {
     console.log(tabName);
     if (tabName == 'login') {
       this.loginTab.style.display = 'block';
-      this.signUpLink.classList.add('active');
+      this.signUpLink.classList.remove('active');
       this.signUpTab.style.display = 'none';
-      this.loginLink.classList.remove('active');
+      this.loginLink.classList.add('active');
     }
     else {
       this.loginTab.style.display = 'none';
-      this.signUpLink.classList.remove('active');
+      this.signUpLink.classList.add('active');
       this.signUpTab.style.display = 'block';
-      this.loginLink.classList.add('active');
+      this.loginLink.classList.remove('active');
     }
     return false;
   }
