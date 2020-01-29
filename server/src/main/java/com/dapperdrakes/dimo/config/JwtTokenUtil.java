@@ -1,7 +1,7 @@
 package com.dapperdrakes.dimo.config;
 
 import com.dapperdrakes.dimo.model.JwtResponse;
-import com.dapperdrakes.dimo.util.GenericResponse;
+import com.dapperdrakes.dimo.model.GenericResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

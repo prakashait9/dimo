@@ -7,7 +7,7 @@ import com.dapperdrakes.dimo.model.UserDto;
 import com.dapperdrakes.dimo.model.UserLoginRequest;
 import com.dapperdrakes.dimo.service.IUserService;
 import com.dapperdrakes.dimo.service.JwtUserDetailsService;
-import com.dapperdrakes.dimo.util.GenericResponse;
+import com.dapperdrakes.dimo.model.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

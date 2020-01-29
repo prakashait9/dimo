@@ -1,14 +1,11 @@
 package com.dapperdrakes.dimo.model;
 
-import com.dapperdrakes.dimo.util.validator.PasswordMatches;
 import com.dapperdrakes.dimo.util.validator.ValidEmail;
 import com.dapperdrakes.dimo.util.validator.ValidPassword;
-
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@PasswordMatches
 public class UserDto {
     @NotNull(message="First name cannot be missing or empty")
     @Size(min=2, message="First name must not be less than 2 characters")
@@ -18,10 +15,6 @@ public class UserDto {
 
     @ValidPassword
     private String password;
-
-    @NotNull
-    @Size(min = 1)
-    private String matchingPassword;
 
     @NotNull(message="Email cannot be missing or empty")
     @ValidEmail
@@ -34,7 +27,6 @@ public class UserDto {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.matchingPassword = matchingPassword;
         this.email = email;
     }
 
@@ -50,9 +42,6 @@ public class UserDto {
         return password;
     }
 
-    public String getMatchingPassword() {
-        return matchingPassword;
-    }
 
     public String getEmail() {
         return email;

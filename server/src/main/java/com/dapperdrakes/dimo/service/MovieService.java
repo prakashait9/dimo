@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.dapperdrakes.dimo.dao.MovieRepository;
 import com.dapperdrakes.dimo.model.Movie;
 import com.dapperdrakes.dimo.util.ExcelParser;
-import com.dapperdrakes.dimo.util.GenericResponse;
+import com.dapperdrakes.dimo.model.GenericResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Service
