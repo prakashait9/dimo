@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger py-7 py-lg-8">
+<div class="header bg-gradient-danger py-7 py-lg-6">
   <div class="container">
     <div class="header-body text-center mb-7">
       <div class="row justify-content-center">
@@ -26,10 +26,10 @@
       <div class="card bg-secondary shadow border-0">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
           <li class="nav-item">
-            <a (click)="selectTab('signup')" href="javascript:void()" class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Sign Up</a>
+            <a (click)="selectTab('signup')" href="javascript:void()" class="nav-link active" id="pills-signup-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">Sign Up</a>
           </li>
           <li class="nav-item">
-            <a (click)="selectTab('login')" href="javascript:void()" class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Login</a>
+            <a (click)="selectTab('login')" href="javascript:void()" class="nav-link " id="pills-login-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">Login</a>
           </li>
         </ul>
 
@@ -90,7 +90,7 @@
                 <input type="password" formControlName="password" placeholder="Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && user.password.errors }" />
                 <div *ngIf="submitted && user.password.errors" class="invalid-feedback">
                   <div *ngIf="user.password.errors.required">Password is required</div>
-                  <div *ngIf="user.password.errors.minlength">Password must be at least 6 characters</div>
+                  <div *ngIf="user.password.errors.minlength">Password must be at least 8 characters</div>
                 </div>
               </div>
             </div>

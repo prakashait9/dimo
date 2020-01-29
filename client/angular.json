@@ -25,7 +25,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/vendor/nucleo/css/nucleo.css"
+              "src/assets/vendor/nucleo/css/nucleo.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },

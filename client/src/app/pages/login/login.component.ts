@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { MustMatch } from '../../_helpers/must-match.validators';
 import { LoginService } from './login.service';
 
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,8 @@ export class LoginComponent implements OnInit {
   users: any = [];
   constructor(private formBuilder: FormBuilder,
     private loginService: LoginService,
-    private router: Router) {
+    private router: Router,
+    private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -71,32 +74,32 @@ export class LoginComponent implements OnInit {
           // this.alertService.success('Registration successful', true);
           // this.router.navigate(['/login']);
           console.log("Success");
+          this.toastr.success('', 'Hurray! Sign up Succesfull!', {timeOut : 3000});
           this.router.navigate(['/dashboard']);
         },
         error => {
           // this.alertService.error(error);
           //  this.loading = false;
           console.log("error");
-          this.router.navigate(['/dashboard']);
+          this.toastr.error('', 'Please try again!!', {timeOut : 3000});
+        //  this.router.navigate(['/dashboard']);
         });
 
-
-    //alert("Success!" + this.signupForm.value);
   }
 
   selectTab(tabName) {
     console.log(tabName);
     if (tabName == 'login') {
       document.getElementById('logintab').style.display = 'block';
-      document.getElementById('pills-login-tab').classList.add('active');
+      document.getElementById('pills-signup-tab').classList.add('active');
       document.getElementById('signuptab').style.display = 'none';
-      document.getElementById('pills-signup-tab').classList.remove('active');
+      document.getElementById('pills-login-tab').classList.remove('active');
     }
     else {
       document.getElementById('logintab').style.display = 'none';
-      document.getElementById('pills-login-tab').classList.remove('active');
+      document.getElementById('pills-signup-tab').classList.remove('active');
       document.getElementById('signuptab').style.display = 'block';
-      document.getElementById('pills-signup-tab').classList.add('active');
+      document.getElementById('pills-login-tab').classList.add('active');
     }
     return false;
   }
