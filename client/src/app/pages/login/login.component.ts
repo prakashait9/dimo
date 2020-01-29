@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.loginTab = document.getElementById('logintab');
     this.signUpTab = document.getElementById('signuptab');
     this.loginLink = document.getElementById('pills-login-tab');
