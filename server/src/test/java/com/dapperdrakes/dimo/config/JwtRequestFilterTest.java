@@ -39,6 +39,7 @@ public class JwtRequestFilterTest {
         UserDetails userDetails = mock(UserDetails.class);
 
         String token = "Bearer token";
+        when(request.getRequestURI()).thenReturn("/api/test");
         when(request.getHeader("Authorization")).thenReturn(token);
         when(jwtTokenUtil.getUsernameFromToken(token)).thenReturn("test");
 
@@ -60,6 +61,7 @@ public class JwtRequestFilterTest {
         UserDetails userDetails = mock(UserDetails.class);
 
         String token = "Bearer token";
+        when(request.getRequestURI()).thenReturn("/api/test");
         when(request.getHeader("Authorization")).thenReturn(null);
         when(jwtTokenUtil.getUsernameFromToken(token)).thenReturn(null);
 
