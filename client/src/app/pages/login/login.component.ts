@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   signUpTab;
   loginLink;
   signUpLink;
+  test;
 
   users: any = [];
   constructor(private formBuilder: FormBuilder,
