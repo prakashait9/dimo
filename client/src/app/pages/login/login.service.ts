@@ -13,4 +13,8 @@ export class LoginService {
   signupUser(user: User) {
     return this.http.post(`/api/signup`, user);
   }
+
+  loginUser(user: User) {
+    return this.http.post(`/api/login`, user);
+  }
 }
