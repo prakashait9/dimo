@@ -3,7 +3,6 @@ package com.dapperdrakes.dimo.model;
 import com.dapperdrakes.dimo.util.validator.PasswordMatches;
 import com.dapperdrakes.dimo.util.validator.ValidEmail;
 import com.dapperdrakes.dimo.util.validator.ValidPassword;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import javax.validation.constraints.NotNull;
@@ -58,17 +57,4 @@ public class UserDto {
     public String getEmail() {
         return email;
     }
-
-
-    @Override
-    public String toString() {
-        return "UserDto{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
-                ", matchingPassword='" + matchingPassword + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
-
 }

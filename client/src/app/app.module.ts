@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
@@ -15,7 +16,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

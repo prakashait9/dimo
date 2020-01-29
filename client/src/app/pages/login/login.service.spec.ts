@@ -4,7 +4,7 @@ import { LoginService } from './login.service';
 
 describe('LoginService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-   imports: [HttpClientModule]
+    imports: [HttpClientModule]
   }));
 
   it('should be created', () => {
