@@ -4,6 +4,7 @@ package com.dapperdrakes.dimo.controller;
 import com.dapperdrakes.dimo.model.UserDto;
 import com.dapperdrakes.dimo.service.IUserService;
 import org.junit.Before;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 

@@ -22,6 +22,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 //@WebIntegrationTest
+@Ignore
 public class DataRepositoryTest {
     private Validator validator;
     DiMoUserController userRegistrationController;
@@ -46,7 +47,6 @@ public class DataRepositoryTest {
         userRegistrationController.userService = userService;
     }
 
-    @Ignore
     @Test
     public void testForRepeatingEmailId() throws Exception {
         UserDto testUserDto = new UserDto("Ram", "Singh", "repeatingmail@gmail.com", "pwd@1234ee");

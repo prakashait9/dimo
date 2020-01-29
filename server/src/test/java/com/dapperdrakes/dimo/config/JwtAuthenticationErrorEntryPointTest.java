@@ -1,6 +1,6 @@
 package com.dapperdrakes.dimo.config;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.security.core.AuthenticationException;
 
 import javax.servlet.ServletException;
@@ -10,10 +10,10 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.*;
 
-class JwtAuthenticationErrorEntryPointTest {
+public class JwtAuthenticationErrorEntryPointTest {
 
     @Test
-    void testCommence() throws IOException, ServletException {
+    public void testCommence() throws IOException, ServletException {
         JwtAuthenticationErrorEntryPoint jwtAuthenticationErrorEntryPoint = new JwtAuthenticationErrorEntryPoint();
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
