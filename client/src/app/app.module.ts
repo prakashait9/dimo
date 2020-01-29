@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { ComponentsModule } from './components/components.module';
 
 
 
@@ -16,16 +16,15 @@ import { FooterComponent } from './components/footer/footer.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent,
-    FooterComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
-
+    AppRoutingModule,
+    ComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

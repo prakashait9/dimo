@@ -1,5 +1,7 @@
 package com.dapperdrakes.dimo.config;
 
+import com.dapperdrakes.dimo.model.JwtResponse;
+import com.dapperdrakes.dimo.util.GenericResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -49,9 +51,11 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //generate token for user
-    public String generateToken(UserDetails userDetails) {
+    public GenericResponse generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getUsername());
+        JwtResponse token = new JwtResponse(doGenerateToken(claims, userDetails.getUsername()));
+        GenericResponse response = new GenericResponse(token);
+        return response;
     }
 
     //while creating the token -

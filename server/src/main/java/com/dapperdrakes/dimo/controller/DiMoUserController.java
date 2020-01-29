@@ -3,19 +3,20 @@ package com.dapperdrakes.dimo.controller;
 
 import com.dapperdrakes.dimo.config.JwtTokenUtil;
 import com.dapperdrakes.dimo.model.DiMoUser;
-import com.dapperdrakes.dimo.model.JwtResponse;
 import com.dapperdrakes.dimo.model.UserDto;
 import com.dapperdrakes.dimo.model.UserLoginRequest;
 import com.dapperdrakes.dimo.service.IUserService;
 import com.dapperdrakes.dimo.service.JwtUserDetailsService;
+import com.dapperdrakes.dimo.util.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -35,7 +36,7 @@ public class DiMoUserController {
     private JwtUserDetailsService userDetailsService;
 
     @PostMapping(value = "/signup", produces = "application/json")
-    public Object registerUserAccount(@Valid @RequestBody UserDto accountInfo) throws Exception {
+    public GenericResponse registerUserAccount(@Valid @RequestBody UserDto accountInfo) throws Exception {
         final DiMoUser registered = userService.registerNewUserAccount(accountInfo);
         if(registered != null) {
             return createAuthenticationToken(new UserLoginRequest(accountInfo.getEmail(), accountInfo.getPassword()));
@@ -44,11 +45,10 @@ public class DiMoUserController {
     }
 
     @PostMapping(value = "/login" , produces = "application/json")
-    public Object createAuthenticationToken(@RequestBody UserLoginRequest authenticationRequest) throws Exception {
+    public GenericResponse createAuthenticationToken(@RequestBody UserLoginRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest);
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
-        final String token = jwtTokenUtil.generateToken(userDetails);
-        return new JwtResponse(token);
+        return jwtTokenUtil.generateToken(userDetails);
     }
 
     private void authenticate(UserLoginRequest userLoginRequest) throws Exception {
