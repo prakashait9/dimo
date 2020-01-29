@@ -1,6 +1,5 @@
 package com.dapperdrakes.dimo.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -18,13 +17,13 @@ public class Movie implements java.io.Serializable{
 	private String origLang;
 	private String origTitle;
 	private String overview;
-	private BigDecimal popularity;
+	private Double popularity;
 	private Date releaseDate;
 	private Long revenue;
 	private Integer runtime;
 	private String status;
 	private String tagline;
-	private BigDecimal voteAverage;
+	private Double voteAverage;
 	private Integer voteCount;
 	private List<Genre> genre;
 	private List<Keywords> keyword;
@@ -56,7 +55,7 @@ public class Movie implements java.io.Serializable{
 		return overview;
 	}
 
-	public BigDecimal getPopularity() {
+	public Double getPopularity() {
 		return popularity;
 	}
 
@@ -80,7 +79,7 @@ public class Movie implements java.io.Serializable{
 		return tagline;
 	}
 
-	public BigDecimal getVoteAverage() {
+	public Double getVoteAverage() {
 		return voteAverage;
 	}
 
@@ -140,7 +139,7 @@ public class Movie implements java.io.Serializable{
 		this.overview = overview;
 	}
 
-	public void setPopularity(BigDecimal popularity) {
+	public void setPopularity(Double popularity) {
 		this.popularity = popularity;
 	}
 
@@ -164,7 +163,7 @@ public class Movie implements java.io.Serializable{
 		this.tagline = tagline;
 	}
 
-	public void setVoteAverage(BigDecimal voteAverage) {
+	public void setVoteAverage(Double voteAverage) {
 		this.voteAverage = voteAverage;
 	}
 
