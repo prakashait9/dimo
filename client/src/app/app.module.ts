@@ -13,6 +13,7 @@ import { ComponentsModule } from './components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
+import { MovieComponent } from './pages/movie/movie.component';
 
 
 
@@ -20,7 +21,8 @@ import { ToastrModule } from 'ngx-toastr';
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    MovieComponent
   ],
   imports: [
     BrowserModule,
