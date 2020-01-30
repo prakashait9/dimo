@@ -8,11 +8,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { MoviedetailsComponent} from './pages/moviedetails/moviedetails.component';
+
 import { ComponentsModule } from './components/components.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MoviedetailsComponent } from './moviedetails/moviedetails.component';
 
 
 
@@ -20,7 +25,8 @@ import { ToastrModule } from 'ngx-toastr';
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    MoviedetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +36,8 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    ComponentsModule
+    ComponentsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
