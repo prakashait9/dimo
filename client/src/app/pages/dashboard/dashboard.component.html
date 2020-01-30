@@ -31,14 +31,17 @@
     </div>
   </nav>
   <div class="genre-list">
-    <div *ngFor="let genre of favouriteGenreMovies" class="genre shadow">
+    <div *ngFor="let genre of favouriteGenreMoviesForDisplay" class="genre shadow">
       <div class="genre-title row justify-content-between">
-        <div class="title">{{genre.genrename}}</div>
+        <div class="title h2 font-weight-bold mb-0">{{genre.genrename}}</div>
         <div class="see-all btn btn-sm btn-primary">See All</div>
       </div>
       <div class="movies-list row">
         <div *ngFor="let movie of genre.movies" class="movie col-sm">
-          <img class="movie-image" src="http://www.theprintworks.com/wp-content/themes/psBella/assets/img/film-poster-placeholder.png" alt="Movie image">
+          <div *ngIf="movie.title" [routerLink]="['/movie', movie.movieid]">
+              <img class="movie-image" src="http://www.theprintworks.com/wp-content/themes/psBella/assets/img/film-poster-placeholder.png" alt="Movie image">
+              <div class="movie-title">{{movie.title}}</div>
+          </div>
         </div>
       </div>
     </div>

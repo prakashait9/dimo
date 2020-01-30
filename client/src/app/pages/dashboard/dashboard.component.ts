@@ -11,7 +11,8 @@ import { Movie } from '../../model/movie.model';
 export class DashboardComponent implements OnInit {
 
   body;
-  favouriteGenreMovies: Object[] = [];
+  favouriteGenreMoviesForDisplay: Object[] = [];
+  favouriteGenreMoviesComplete: Object[] = []; //to be used later for 'See All' functionality
   constructor(
     private dashboardService: DashboardService,
   ) { }
@@ -27,12 +28,34 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getMoviesByPreferredGenres().
       subscribe(
         genres => {
-            genres.forEach(genre => {
-                while (genre.movies.length < 4){
-                    genre.movies.push({});
-                }
-            });
-            this.favouriteGenreMovies = genres;
+          this.favouriteGenreMoviesComplete = [...genres];
+          genres.forEach(genre => {
+            genre.movies = genre.movies.splice(0, 4);
+            while (genre.movies.length < 4) {
+              genre.movies.push({
+                title: null,
+                movieid: null,
+                budget: null,
+                homepage: null,
+                origLang: null,
+                origTitle: null,
+                overview: null,
+                popularity: null,
+                releaseDate: null,
+                revenue: null,
+                runtime: null,
+                status: null,
+                tagline: null,
+                voteAverage: null,
+                voteCount: null,
+                genre: null,
+                keyword: null
+              });
+            }
+            console.log(genre);
+
+          });
+          this.favouriteGenreMoviesForDisplay = genres;
         },
         error => {
           console.log('error', error);

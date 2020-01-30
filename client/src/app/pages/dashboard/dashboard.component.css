@@ -63,13 +63,15 @@ input::-webkit-input-placeholder {
 }
 
 .genre-title {
-    padding: 0 40px;
+    padding: 28px 40px;
+    margin: 0;
 }
 
 .genre {
     border-radius: 0.375rem;
     background-color: #fff;
     margin-top: 40px;
+    padding-bottom: 28px;
 }
 
 .movies-list {
@@ -80,7 +82,15 @@ input::-webkit-input-placeholder {
     text-align: center;
 }
 
+.movie>div{
+    cursor: pointer;
+}
+
 .movie-image {
     width: 265px;
     height: 346px;
+}
+
+.movie-title {
+    margin: 5px 0 10px 0;
 }
