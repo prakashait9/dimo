@@ -72,7 +72,10 @@ export class LoginComponent implements OnInit {
       ]
     });
 
-
+    var token = localStorage.getItem("id_token");
+    if(token != null){
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   get user() { return this.signupForm.controls; }
@@ -84,11 +87,39 @@ export class LoginComponent implements OnInit {
 
       return;
     }
-
     this.loginService.signupUser(this.signupForm.value)
       //.pipe(first())
       .subscribe(
         data => {
+          // set jwt token in local storage
+          localStorage.setItem('id_token', data["data"]["token"]);
+          // this.alertService.success('Registration successful', true);
+          // this.router.navigate(['/login']);
+          console.log("Success");
+          this.toastr.success('', 'Hurray! Sign up Succesfull!', {timeOut : 3000});
+          this.router.navigate(['/dashboard']);
+        },
+        error => {
+          // this.alertService.error(error);
+          //  this.loading = false;
+          console.log("error");
+          this.toastr.error('', 'Please try again!!', {timeOut : 3000});
+        //  this.router.navigate(['/dashboard']);
+        });
+
+  }
+
+  onLoginSubmit() {
+    this.submitted = true;
+    if (this.loginForm.invalid) {
+      return;
+    }
+    this.loginService.loginUser(this.loginForm.value)
+      //.pipe(first())
+      .subscribe(
+        data => {
+          // set jwt token in local storage
+          localStorage.setItem('id_token', data["data"]["token"]);
           // this.alertService.success('Registration successful', true);
           // this.router.navigate(['/login']);
           console.log("Success");
@@ -106,7 +137,6 @@ export class LoginComponent implements OnInit {
   }
 
   selectTab(tabName) {
-    console.log(tabName);
     if (tabName == 'login') {
       this.loginTab.style.display = 'block';
       this.signUpLink.classList.add('active');
