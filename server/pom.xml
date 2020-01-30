@@ -111,15 +111,15 @@
 	</dependencies>
 
     <build>
-        <plugins>
+		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-<!--				<configuration>-->
-<!--					<jvmArguments>-->
-<!--						-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005-->
-<!--					</jvmArguments>-->
-<!--				</configuration>-->
+				<!--				<configuration>-->
+				<!--					<jvmArguments>-->
+				<!--						-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005-->
+				<!--					</jvmArguments>-->
+				<!--				</configuration>-->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -133,22 +133,39 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-            <plugin>
-                <groupId>com.heroku.sdk</groupId>
-                <artifactId>heroku-maven-plugin</artifactId>
-                <version>2.0.16</version>
-                <configuration>
-                    <appName>dimo-web</appName>
-                    <processTypes>
-                        <web>java $JAVA_OPTS -jar target/dimo-0.0.1-SNAPSHOT.jar</web>
-                    </processTypes>
-                    <includeTarget>false</includeTarget>
-                    <includes>
-                        <include>target/dimo-0.0.1-SNAPSHOT.jar</include>
-                    </includes>
-                </configuration>
-            </plugin>
-        </plugins>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>2.0.16</version>
+				<configuration>
+					<appName>dimo-web</appName>
+					<processTypes>
+						<web>java $JAVA_OPTS -jar target/dimo-0.0.1-SNAPSHOT.jar</web>
+					</processTypes>
+					<includeTarget>false</includeTarget>
+					<includes>
+						<include>target/dimo-0.0.1-SNAPSHOT.jar</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<executions>
+					<execution><!-- Run our version calculation script -->
+						<id>Build client and copy to server</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<executable>bash</executable>
+					<commandlineArgs>build_client.sh</commandlineArgs>
+				</configuration>
+			</plugin>
+		</plugins>
     </build>
-
 </project>
