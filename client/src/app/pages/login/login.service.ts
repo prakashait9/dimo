@@ -11,11 +11,11 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   signupUser(user: User) {
-    return this.http.post(`http://localhost:8080/api/signup`, user);
+    return this.http.post(`/api/signup`, user);
   }
 
   loginUser(user: User) {
-    return this.http.post(`http://localhost:8080/api/login`, user);
+    return this.http.post(`/api/login`, user);
   }
 
 //    signupUser(user: User) {
