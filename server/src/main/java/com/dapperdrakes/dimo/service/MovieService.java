@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.dapperdrakes.dimo.error.MovieNotFoundException;
+import com.dapperdrakes.dimo.model.MovieDetailDTO;
 import org.dhatim.fastexcel.reader.ReadableWorkbook;
 import org.dhatim.fastexcel.reader.Row;
 import org.dhatim.fastexcel.reader.Sheet;
@@ -72,6 +74,15 @@ public class MovieService {
 
 	public List<Movie> getAllMovie() {
 		return mongoTemplate.findAll(Movie.class);
+	}
+
+	public GenericResponse getMovieById(int id) throws MovieNotFoundException {
+		Movie movie = movieRepository.getMovieDetails(id);
+		if(movie == null){
+			throw new MovieNotFoundException("Movie with id: " + id + " does not exist");
+		}
+		MovieDetailDTO movieDetailDTO = new MovieDetailDTO(movie);
+		return new GenericResponse(movieDetailDTO);
 	}
 
 }

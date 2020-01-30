@@ -27,6 +27,16 @@ public class Movie implements java.io.Serializable{
 	private Integer voteCount;
 	private List<Genre> genre;
 	private List<Keywords> keyword;
+	private String poster;
+
+	public String getPoster() {
+		return poster;
+	}
+
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
+
 	public int getId() {
 		return id;
 	}
