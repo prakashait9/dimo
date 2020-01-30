@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
   signUpTab;
   loginLink;
   signUpLink;
+  loginError = '';
+  signupError = '';
   test: Date = new Date();;
 
   users: any = [];
@@ -95,6 +97,8 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
+
+    this.signupError = '';
     this.submitted = true;
     if (this.signupForm.invalid) {
 
@@ -116,20 +120,23 @@ export class LoginComponent implements OnInit {
           //  this.loading = false;
           console.log(JSON.stringify(error));
           if (error["status"] == 0) {
-            this.toastr.info("", "Service Unavailable. Please contact site administrator.", { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
-          }
+            this.signupError = 'Service Unavailable. Please contact site administrator.';
+           }
           else if (error["status"] == 401) {
-            this.toastr.info("", "Invalid Email or Password", { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
+             this.signupError = 'Invalid Email or Password';
+
           }
           else {
-            this.toastr.info("", error["error"]["error_message"], { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
-          }
-          //  this.router.navigate(['/dashboard']);
+              this.signupError = error["error"]["error_message"];
+           }
+
         });
 
   }
 
   onLoginSubmit() {
+
+    this.loginError = "";
     this.loginSubmitted = true;
     if (this.loginForm.invalid) {
 
@@ -146,16 +153,21 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard']);
         },
         error => {
+
+
+
           if (error["status"] == 0) {
-            this.toastr.info("", "Service Unavailable. Please contact site administrator.", { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
+            this.loginError = "Service Unavailable. Please contact site administrator.";
           }
           else if (error["status"] == 401) {
-            this.toastr.info("", "Invalid Email or Password.", { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
+            this.loginError = "Invalid Email or Password.";
           }
           else {
-            this.toastr.info("", error["error"]["error_message"], { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
+            this.loginError= error["error"]["error_message"];
           }
-          //this.toastr.error('', 'Invalid Credentials, Please try again.', {timeOut : 3000});
+
+
+
 
         });
 
@@ -163,6 +175,8 @@ export class LoginComponent implements OnInit {
   } // End of onLoginSubmit
 
   selectTab(tabName) {
+
+
     if (tabName == 'login') {
       this.loginTab.style.display = 'block';
       this.signUpLink.classList.add('active');

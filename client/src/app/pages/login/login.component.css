@@ -32,3 +32,12 @@
 footer {
     background-color: #172b4d !important;
 }
+
+.dimoError{
+
+    color: red;
+    border-color: red;
+    background-color: white;
+
+    margin: -15px 0px 20px 0px;
+  }
