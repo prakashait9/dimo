@@ -11,11 +11,14 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-
-     var token = localStorage.getItem("id_token");
-            if(token == null){
-              this.router.navigate(['']);
-            }
+    this.navigateToLoginPageIfEmptyToken()
   }
 
+
+  navigateToLoginPageIfEmptyToken(){
+    var token = localStorage.getItem("id_token");
+    if(token == null){
+      this.router.navigate(['/']);
+    }
+  }
 }

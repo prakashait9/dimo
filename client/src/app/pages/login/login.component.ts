@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
   signUpTab;
   loginLink;
   signUpLink;
+  loginError = '';
+  signupError = '';
   test: Date = new Date();;
 
   users: any = [];
@@ -34,9 +36,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
     var token = localStorage.getItem("id_token");
-        if(token != null){
-          this.router.navigate(['/dashboard']);
-        }
+    if (token != null) {
+      this.router.navigate(['/dashboard']);
+    }
 
 
     this.loginTab = document.getElementById('logintab');
@@ -51,36 +53,42 @@ export class LoginComponent implements OnInit {
         Validators.maxLength(50)]
       ],
       'lastName': ['',
-        [Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(50)]
+        []
       ],
       email: ['',
         [Validators.required,
-        Validators.email]
+        Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+        Validators.maxLength(256)]
       ],
       password: ['',
         [Validators.required,
-        Validators.minLength(6)]
+        Validators.pattern(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/),
+        Validators.minLength(8),
+        Validators.maxLength(30)]
       ],
       confirmPassword: ['',
         Validators.required
       ],
     }, {
-        validator: MustMatch('password', 'confirmPassword')
-      });
+      validator: MustMatch('password', 'confirmPassword')
+    });
 
     this.loginForm = this.formBuilder.group({
       email: ['',
         [Validators.required,
-        Validators.email]
+        Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+        Validators.maxLength(256)]
       ],
       password: ['', [
-        Validators.required]
+        Validators.required,
+        Validators.maxLength(30)]
       ]
     });
 
-
+    var token = localStorage.getItem("id_token");
+    if (token != null) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   get user() { return this.signupForm.controls; }
@@ -89,65 +97,86 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
+
+    this.signupError = '';
     this.submitted = true;
     if (this.signupForm.invalid) {
 
       return;
     }
-
     this.loginService.signupUser(this.signupForm.value)
       //.pipe(first())
       .subscribe(
         data => {
+          // set jwt token in local storage
+          localStorage.setItem('id_token', data["data"]["token"]);
           // this.alertService.success('Registration successful', true);
           // this.router.navigate(['/login']);
-
-          localStorage.setItem('id_token', data["data"]["token"]);
-
-          console.log("Success");
-          this.toastr.success('', 'Hurray! Sign up Succesfull!', {timeOut : 3000});
+          this.toastr.success('', 'Hurray! Sign up Succesfull!', { timeOut: 3000 });
           this.router.navigate(['/dashboard']);
         },
         error => {
           // this.alertService.error(error);
           //  this.loading = false;
-          console.log("error");
-          this.toastr.error('', 'Please try again!!', {timeOut : 3000});
-        //  this.router.navigate(['/dashboard']);
+          console.log(JSON.stringify(error));
+          if (error["status"] == 0) {
+            this.signupError = 'Service Unavailable. Please contact site administrator.';
+           }
+          else if (error["status"] == 401) {
+             this.signupError = 'Invalid Email or Password';
+
+          }
+          else {
+              this.signupError = error["error"]["error_message"];
+           }
+
         });
 
   }
 
+  onLoginSubmit() {
 
-   onLoginSubmit() {
-      this.loginSubmitted = true;
-      if (this.loginForm.invalid) {
+    this.loginError = "";
+    this.loginSubmitted = true;
+    if (this.loginForm.invalid) {
 
-        return;
-      }
+      return;
+    }
 
-      this.loginService.loginUser(this.loginForm.value)
+    this.loginService.loginUser(this.loginForm.value)
 
-            .subscribe(
-              data => {
-                // set jwt token in local storage
-                localStorage.setItem('id_token', data["data"]["token"]);
-                console.log("Success");
-                this.toastr.success('', 'Hurray! Login Succesfull!', {timeOut : 3000});
-                this.router.navigate(['/dashboard']);
-              },
-              error => {
+      .subscribe(
+        data => {
+          // set jwt token in local storage
+          localStorage.setItem('id_token', data["data"]["token"]);
+          this.toastr.success('', 'Hurray! Login Succesfull!', { timeOut: 3000 });
+          this.router.navigate(['/dashboard']);
+        },
+        error => {
 
-                console.log("error");
-                this.toastr.error('', 'Invalid Credentials, Please try again.', {timeOut : 3000});
 
-              });
+
+          if (error["status"] == 0) {
+            this.loginError = "Service Unavailable. Please contact site administrator.";
+          }
+          else if (error["status"] == 401) {
+            this.loginError = "Invalid Email or Password.";
+          }
+          else {
+            this.loginError= error["error"]["error_message"];
+          }
+
+
+
+
+        });
 
 
   } // End of onLoginSubmit
 
   selectTab(tabName) {
-    console.log(tabName);
+
+
     if (tabName == 'login') {
       this.loginTab.style.display = 'block';
       this.signUpLink.classList.add('active');
