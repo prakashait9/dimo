@@ -57,11 +57,14 @@ export class LoginComponent implements OnInit {
       ],
       email: ['',
         [Validators.required,
-        Validators.email]
+        Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+        Validators.maxLength(256)]
       ],
       password: ['',
         [Validators.required,
-        Validators.minLength(6)]
+        Validators.pattern(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/),
+        Validators.minLength(8),
+        Validators.maxLength(30)]
       ],
       confirmPassword: ['',
         Validators.required
@@ -73,10 +76,12 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: ['',
         [Validators.required,
-        Validators.email]
+        Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+        Validators.maxLength(256)]
       ],
       password: ['', [
-        Validators.required]
+        Validators.required,
+        Validators.maxLength(30)]
       ]
     });
 
@@ -105,15 +110,20 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('id_token', data["data"]["token"]);
           // this.alertService.success('Registration successful', true);
           // this.router.navigate(['/login']);
-          console.log("Success");
           this.toastr.success('', 'Hurray! Sign up Succesfull!', {timeOut : 3000});
           this.router.navigate(['/dashboard']);
         },
         error => {
           // this.alertService.error(error);
           //  this.loading = false;
-          console.log("error");
-          this.toastr.error('', 'Please try again!!', {timeOut : 3000});
+          if(error["status"] == 0){
+            this.toastr.info("", "Service Unavailable. Please contact site administrator.", {timeOut : 0, positionClass: "toast-center-center", closeButton:true});
+          }
+          var errors = error["error"]["error_message"];
+          errors.forEach(error => {
+            var errorTitle = error["field"][0].toUpperCase() + error["field"].slice(1);
+            this.toastr.info(error["defaultMessage"], errorTitle, {timeOut : 0, positionClass: "toast-center-center", closeButton:true});
+          });
         //  this.router.navigate(['/dashboard']);
         });
 
@@ -132,14 +142,19 @@ export class LoginComponent implements OnInit {
               data => {
                 // set jwt token in local storage
                 localStorage.setItem('id_token', data["data"]["token"]);
-                console.log("Success");
                 this.toastr.success('', 'Hurray! Login Succesfull!', {timeOut : 3000});
                 this.router.navigate(['/dashboard']);
               },
               error => {
-
-                console.log("error");
-                this.toastr.error('', 'Invalid Credentials, Please try again.', {timeOut : 3000});
+                if(error["status"] == 0){
+                  this.toastr.info("", "Service Unavailable. Please contact site administrator.", {timeOut : 0, positionClass: "toast-center-center", closeButton:true});
+                }
+                var errors = error["error"]["error_message"];
+                errors.forEach(error => {
+                  var errorTitle = error["field"][0].toUpperCase() + error["field"].slice(1);
+                  this.toastr.info(error["defaultMessage"], errorTitle, {timeOut : 0, positionClass: "toast-center-center", closeButton:true});
+                });
+                //this.toastr.error('', 'Invalid Credentials, Please try again.', {timeOut : 3000});
 
               });
 
