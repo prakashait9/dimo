@@ -25,7 +25,7 @@ export class DashboardService {
             homepage: 'http',
             origLang: 'English',
             origTitle: 'Final Fantasy Advent Children',
-            overview: '',
+            overview: 'New York, the largest city in the U.S., is an architectural marvel with plenty of historic monuments, magnificent buildings and countless dazzling skyscrapers.',
             popularity: 9,
             releaseDate: new Date(),
             revenue: 12345,
