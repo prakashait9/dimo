@@ -17,10 +17,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@CrossOrigin
 @RestController
 @CrossOrigin
 public class DiMoUserController {
@@ -37,6 +39,7 @@ public class DiMoUserController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
+    @CrossOrigin
     @PostMapping(value = "/api/signup", produces = "application/json")
     public GenericResponse registerUserAccount(@Valid @RequestBody UserDto accountInfo) throws Exception {
         final DiMoUser registered = userService.registerNewUserAccount(accountInfo);
