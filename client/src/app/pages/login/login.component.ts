@@ -119,37 +119,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  onLoginSubmit() {
-    this.submitted = true;
-    if (this.loginForm.invalid) {
-      return;
-    }
-    this.loginService.loginUser(this.loginForm.value)
-      //.pipe(first())
-      .subscribe(
-        data => {
-          // set jwt token in local storage
-          localStorage.setItem('id_token', data["data"]["token"]);
-          // this.alertService.success('Registration successful', true);
-          // this.router.navigate(['/login']);
-
-          localStorage.setItem('id_token', data["data"]["token"]);
-
-          console.log("Success");
-          this.toastr.success('', 'Hurray! Sign up Succesfull!', {timeOut : 3000});
-          this.router.navigate(['/dashboard']);
-        },
-        error => {
-          // this.alertService.error(error);
-          //  this.loading = false;
-          console.log("error");
-          this.toastr.error('', 'Please try again!!', {timeOut : 3000});
-        //  this.router.navigate(['/dashboard']);
-        });
-
-  }
-
-
    onLoginSubmit() {
       this.loginSubmitted = true;
       if (this.loginForm.invalid) {
