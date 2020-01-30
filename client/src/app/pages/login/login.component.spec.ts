@@ -62,4 +62,25 @@ describe('LoginComponent', () => {
     expect(component.user.email.errors.email).toBe(true);
   });
 
+
+  it("Should throw error if email & password is not provided",function(){
+
+      component.loginUser.email.setValue("");
+       component.loginUser.password.setValue("");
+      component.onLoginSubmit();
+
+      expect(component.loginUser.password.errors.required).toBe(true);
+  });
+
+
+  it(" should allow to login when email & password is provided", function(){
+
+          component.loginUser.email.setValue("abc@gmail.com");
+          component.loginUser.password.setValue("password");
+          component.onLoginSubmit();
+
+           expect(component.loginUser.password.errors).toBe(null);
+           expect(component.loginUser.email.errors).toBe(null);
+  });
+
 });

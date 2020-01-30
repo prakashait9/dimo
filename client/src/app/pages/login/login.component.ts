@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   signupForm: FormGroup;
   loginForm: FormGroup;
   submitted = false;
+  loginSubmitted = false;
   loginTab;
   signUpTab;
   loginLink;
@@ -31,6 +32,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    var token = localStorage.getItem("id_token");
+        if(token != null){
+          this.router.navigate(['/dashboard']);
+        }
+
+
     this.loginTab = document.getElementById('logintab');
     this.signUpTab = document.getElementById('signuptab');
     this.loginLink = document.getElementById('pills-login-tab');
@@ -77,6 +85,8 @@ export class LoginComponent implements OnInit {
 
   get user() { return this.signupForm.controls; }
 
+  get loginUser() { return this.loginForm.controls; }
+
 
   onSubmit() {
     this.submitted = true;
@@ -91,6 +101,9 @@ export class LoginComponent implements OnInit {
         data => {
           // this.alertService.success('Registration successful', true);
           // this.router.navigate(['/login']);
+
+          localStorage.setItem('id_token', data["data"]["token"]);
+
           console.log("Success");
           this.toastr.success('', 'Hurray! Sign up Succesfull!', {timeOut : 3000});
           this.router.navigate(['/dashboard']);
@@ -104,6 +117,34 @@ export class LoginComponent implements OnInit {
         });
 
   }
+
+
+   onLoginSubmit() {
+      this.loginSubmitted = true;
+      if (this.loginForm.invalid) {
+
+        return;
+      }
+
+      this.loginService.loginUser(this.loginForm.value)
+
+            .subscribe(
+              data => {
+                // set jwt token in local storage
+                localStorage.setItem('id_token', data["data"]["token"]);
+                console.log("Success");
+                this.toastr.success('', 'Hurray! Login Succesfull!', {timeOut : 3000});
+                this.router.navigate(['/dashboard']);
+              },
+              error => {
+
+                console.log("error");
+                this.toastr.error('', 'Invalid Credentials, Please try again.', {timeOut : 3000});
+
+              });
+
+
+  } // End of onLoginSubmit
 
   selectTab(tabName) {
     console.log(tabName);
