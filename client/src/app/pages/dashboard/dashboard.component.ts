@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
+import * as $ from 'jquery';
 
 import { Movie } from '../../model/movie.model';
 
@@ -22,6 +23,16 @@ export class DashboardComponent implements OnInit {
     this.body.classList.remove('bg-default');
     this.body.classList.add('grey-background');
     this.getMoviesByPreferredGenres();
+    this.initiateHoverWatch();
+  }
+
+  ngAfterViewInit(): void {
+    $('.post-module').hover(function() {
+      $(this).find('.description').stop().animate({
+        height: "toggle",
+        opacity: "toggle"
+      }, 300);
+    });
   }
 
   getMoviesByPreferredGenres() {
@@ -61,6 +72,13 @@ export class DashboardComponent implements OnInit {
           console.log('error', error);
         }
       )
+  }
+
+  initiateHoverWatch() {
+    // let movieElements = document.getElementsByClassName('post-module');
+    // movieElements.forEach(movieElement => {
+    //
+    // });
   }
 
 }
