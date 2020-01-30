@@ -5,13 +5,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { LoginComponent } from './login.component';
 
+import {ToastrModule } from 'ngx-toastr';
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterTestingModule.withRoutes([]), HttpClientModule],
+      imports: [ReactiveFormsModule, RouterTestingModule.withRoutes([]), HttpClientModule, ToastrModule.forRoot()],
       declarations: [LoginComponent]
     })
       .compileComponents();
