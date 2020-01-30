@@ -15,6 +15,7 @@ import { ComponentsModule } from './components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
+import { MovieComponent } from './pages/movie/movie.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MoviedetailsComponent } from './moviedetails/moviedetails.component';

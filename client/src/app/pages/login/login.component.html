@@ -25,10 +25,10 @@
       <div class="card bg-secondary shadow border-0">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
           <li class="nav-item">
-            <a (click)="selectTab('signup')" href="javascript:void()" class="nav-link active" id="pills-signup-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">Sign Up</a>
+            <a (click)="selectTab('signup')" href="javascript:void()" class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">Sign Up</a>
           </li>
           <li class="nav-item">
-            <a (click)="selectTab('login')" href="javascript:void()" class="nav-link " id="pills-login-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">Login</a>
+            <a (click)="selectTab('login')" href="javascript:void()" class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">Login</a>
           </li>
         </ul>
 
@@ -149,29 +149,35 @@
 
 <div class="container-fluid">
     <footer class="footer">
-      <div class="row align-items-center justify-content-xl-between">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-xl-6">
+            <div class="copyright text-center text-xl-center text-muted">
+              &copy; {{ test | date: "yyyy" }} Dapper Drakes
+            </div>
+          </div>
+        </div>
+      <!-- <div class="row align-items-center justify-content-xl-between">
         <div class="col-xl-6">
           <div class="copyright text-center text-xl-left text-muted">
-            <!-- &copy; {{ test | date: "yyyy" }} <a href="https://www.creative-tim.com?ref=ada-footer-admin-layout" class="font-weight-bold ml-1" target="_blank">Creative Tim</a> -->
             &copy; {{ test | date: "yyyy" }} Dapper Drakes
           </div>
         </div>
         <div class="col-xl-6">
           <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-            <!-- <li class="nav-item">
+            <li class="nav-item">
               <a href="https://www.creative-tim.com?ref=ada-footer-admin-layout" class="nav-link" target="_blank">Creative Tim</a>
-            </li> -->
-            <!-- <li class="nav-item">
+            </li>
+            <li class="nav-item">
               <a href="https://www.creative-tim.com/presentation?ref=ada-footer-admin-layout" class="nav-link" target="_blank">About Us</a>
-            </li> -->
-            <!-- <li class="nav-item">
+            </li>
+            <li class="nav-item">
               <a href="http://blog.creative-tim.com?ref=ada-footer-admin-layout" class="nav-link" target="_blank">Blog</a>
-            </li> -->
-            <!-- <li class="nav-item">
+            </li>
+            <li class="nav-item">
               <a href="https://github.com/creativetimofficial/argon-dashboard-angular/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-            </li> -->
+            </li>
           </ul>
         </div>
-      </div>
+      </div> -->
     </footer>
 </div>

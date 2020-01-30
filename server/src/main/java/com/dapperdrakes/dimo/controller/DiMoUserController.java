@@ -35,7 +35,7 @@ public class DiMoUserController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
-    @PostMapping(value = "/signup", produces = "application/json")
+    @PostMapping(value = "/api/signup", produces = "application/json")
     public GenericResponse registerUserAccount(@Valid @RequestBody UserDto accountInfo) throws Exception {
         final DiMoUser registered = userService.registerNewUserAccount(accountInfo);
         if(registered != null) {
@@ -44,7 +44,7 @@ public class DiMoUserController {
         return null;
     }
 
-    @PostMapping(value = "/login" , produces = "application/json")
+    @PostMapping(value = "/api/login" , produces = "application/json")
     public GenericResponse createAuthenticationToken(@RequestBody UserLoginRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest);
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());

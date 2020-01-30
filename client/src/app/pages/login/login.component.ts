@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 
 import { MustMatch } from '../../_helpers/must-match.validators';
 import { LoginService } from './login.service';
-
 import { ToastrService } from 'ngx-toastr';
 
 
@@ -22,13 +21,16 @@ export class LoginComponent implements OnInit {
   signUpTab;
   loginLink;
   signUpLink;
+  test: Date = new Date();
+  body;
 
   users: any = [];
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private toastr: ToastrService) {
-  }
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
 
@@ -38,6 +40,9 @@ this.router.navigate(['/dashboard']);
     this.signUpTab = document.getElementById('signuptab');
     this.loginLink = document.getElementById('pills-login-tab');
     this.signUpLink = document.getElementById('pills-signup-tab');
+    this.body = document.getElementsByTagName('body')[0];
+    this.body.classList.add('bg-default');
+    this.body.classList.remove('grey-background');
 
     this.signupForm = this.formBuilder.group({
       'firstName': ['',
@@ -95,15 +100,15 @@ this.router.navigate(['/dashboard']);
           // this.alertService.success('Registration successful', true);
           // this.router.navigate(['/login']);
           console.log("Success");
-          this.toastr.success('', 'Hurray! Sign up Succesfull!', {timeOut : 3000});
+          this.toastr.success('', 'Hurray! Sign up Succesfull!', { timeOut: 3000 });
           this.router.navigate(['/dashboard']);
         },
         error => {
           // this.alertService.error(error);
           //  this.loading = false;
           console.log("error");
-          this.toastr.error('', 'Please try again!!', {timeOut : 3000});
-        //  this.router.navigate(['/dashboard']);
+          this.toastr.error('', 'Please try again!!', { timeOut: 3000 });
+          //  this.router.navigate(['/dashboard']);
         });
 
   }
