@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
     var token = localStorage.getItem("id_token");
-        if(token != null){
-          this.router.navigate(['/dashboard']);
-        }
+    if (token != null) {
+      this.router.navigate(['/dashboard']);
+    }
 
 
     this.loginTab = document.getElementById('logintab');
@@ -51,9 +51,7 @@ export class LoginComponent implements OnInit {
         Validators.maxLength(50)]
       ],
       'lastName': ['',
-        [Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(50)]
+        []
       ],
       email: ['',
         [Validators.required,
@@ -70,8 +68,8 @@ export class LoginComponent implements OnInit {
         Validators.required
       ],
     }, {
-        validator: MustMatch('password', 'confirmPassword')
-      });
+      validator: MustMatch('password', 'confirmPassword')
+    });
 
     this.loginForm = this.formBuilder.group({
       email: ['',
@@ -86,7 +84,7 @@ export class LoginComponent implements OnInit {
     });
 
     var token = localStorage.getItem("id_token");
-    if(token != null){
+    if (token != null) {
       this.router.navigate(['/dashboard']);
     }
   }
@@ -110,53 +108,56 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('id_token', data["data"]["token"]);
           // this.alertService.success('Registration successful', true);
           // this.router.navigate(['/login']);
-          this.toastr.success('', 'Hurray! Sign up Succesfull!', {timeOut : 3000});
+          this.toastr.success('', 'Hurray! Sign up Succesfull!', { timeOut: 3000 });
           this.router.navigate(['/dashboard']);
         },
         error => {
           // this.alertService.error(error);
           //  this.loading = false;
-          if(error["status"] == 0){
-            this.toastr.info("", "Service Unavailable. Please contact site administrator.", {timeOut : 0, positionClass: "toast-center-center", closeButton:true});
+          console.log(JSON.stringify(error));
+          if (error["status"] == 0) {
+            this.toastr.info("", "Service Unavailable. Please contact site administrator.", { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
           }
-          var errors = error["error"]["error_message"];
-          errors.forEach(error => {
-            var errorTitle = error["field"][0].toUpperCase() + error["field"].slice(1);
-            this.toastr.info(error["defaultMessage"], errorTitle, {timeOut : 0, positionClass: "toast-center-center", closeButton:true});
-          });
-        //  this.router.navigate(['/dashboard']);
+          else if (error["status"] == 401) {
+            this.toastr.info("", "Invalid Email or Password", { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
+          }
+          else {
+            this.toastr.info("", error["error"]["error_message"], { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
+          }
+          //  this.router.navigate(['/dashboard']);
         });
 
   }
 
-   onLoginSubmit() {
-      this.loginSubmitted = true;
-      if (this.loginForm.invalid) {
+  onLoginSubmit() {
+    this.loginSubmitted = true;
+    if (this.loginForm.invalid) {
 
-        return;
-      }
+      return;
+    }
 
-      this.loginService.loginUser(this.loginForm.value)
+    this.loginService.loginUser(this.loginForm.value)
 
-            .subscribe(
-              data => {
-                // set jwt token in local storage
-                localStorage.setItem('id_token', data["data"]["token"]);
-                this.toastr.success('', 'Hurray! Login Succesfull!', {timeOut : 3000});
-                this.router.navigate(['/dashboard']);
-              },
-              error => {
-                if(error["status"] == 0){
-                  this.toastr.info("", "Service Unavailable. Please contact site administrator.", {timeOut : 0, positionClass: "toast-center-center", closeButton:true});
-                }
-                var errors = error["error"]["error_message"];
-                errors.forEach(error => {
-                  var errorTitle = error["field"][0].toUpperCase() + error["field"].slice(1);
-                  this.toastr.info(error["defaultMessage"], errorTitle, {timeOut : 0, positionClass: "toast-center-center", closeButton:true});
-                });
-                //this.toastr.error('', 'Invalid Credentials, Please try again.', {timeOut : 3000});
+      .subscribe(
+        data => {
+          // set jwt token in local storage
+          localStorage.setItem('id_token', data["data"]["token"]);
+          this.toastr.success('', 'Hurray! Login Succesfull!', { timeOut: 3000 });
+          this.router.navigate(['/dashboard']);
+        },
+        error => {
+          if (error["status"] == 0) {
+            this.toastr.info("", "Service Unavailable. Please contact site administrator.", { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
+          }
+          else if (error["status"] == 401) {
+            this.toastr.info("", "Invalid Email or Password.", { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
+          }
+          else {
+            this.toastr.info("", error["error"]["error_message"], { timeOut: 0, positionClass: "toast-center-center", closeButton: true });
+          }
+          //this.toastr.error('', 'Invalid Credentials, Please try again.', {timeOut : 3000});
 
-              });
+        });
 
 
   } // End of onLoginSubmit

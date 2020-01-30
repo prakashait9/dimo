@@ -32,7 +32,6 @@ describe('LoginComponent', () => {
   it('should throw error for required elements', function() {
     component.onSubmit();
     expect(component.user.firstName.errors.required).toBe(true);
-    expect(component.user.lastName.errors.required).toBe(true);
     expect(component.user.email.errors.required).toBe(true);
     expect(component.user.password.errors.required).toBe(true);
     expect(component.user.confirmPassword.errors.required).toBe(true);
