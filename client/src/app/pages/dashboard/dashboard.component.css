@@ -57,3 +57,30 @@ input:-moz-placeholder {
 input::-webkit-input-placeholder {
 	color: #999;
 }
+
+.genre-list {
+    padding: 15px 40px;
+}
+
+.genre-title {
+    padding: 0 40px;
+}
+
+.genre {
+    border-radius: 0.375rem;
+    background-color: #fff;
+    margin-top: 40px;
+}
+
+.movies-list {
+    margin: 0;
+}
+
+.movie {
+    text-align: center;
+}
+
+.movie-image {
+    width: 265px;
+    height: 346px;
+}

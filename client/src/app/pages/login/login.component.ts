@@ -22,13 +22,15 @@ export class LoginComponent implements OnInit {
   signUpTab;
   loginLink;
   signUpLink;
+  body;
 
   users: any = [];
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private toastr: ToastrService) {
-  }
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
 
@@ -36,6 +38,9 @@ export class LoginComponent implements OnInit {
     this.signUpTab = document.getElementById('signuptab');
     this.loginLink = document.getElementById('pills-login-tab');
     this.signUpLink = document.getElementById('pills-signup-tab');
+    this.body = document.getElementsByTagName('body')[0];
+    this.body.classList.add('bg-default');
+    this.body.classList.remove('grey-background');
 
     this.signupForm = this.formBuilder.group({
       'firstName': ['',
@@ -93,15 +98,15 @@ export class LoginComponent implements OnInit {
           // this.alertService.success('Registration successful', true);
           // this.router.navigate(['/login']);
           console.log("Success");
-          this.toastr.success('', 'Hurray! Sign up Succesfull!', {timeOut : 3000});
+          this.toastr.success('', 'Hurray! Sign up Succesfull!', { timeOut: 3000 });
           this.router.navigate(['/dashboard']);
         },
         error => {
           // this.alertService.error(error);
           //  this.loading = false;
           console.log("error");
-          this.toastr.error('', 'Please try again!!', {timeOut : 3000});
-        //  this.router.navigate(['/dashboard']);
+          this.toastr.error('', 'Please try again!!', { timeOut: 3000 });
+          //  this.router.navigate(['/dashboard']);
         });
 
   }
