@@ -28,7 +28,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
-        if(!request.getRequestURI().matches("^/api/.*")){
+        String uri = request.getRequestURI();
+        if(!uri.matches("^/api/.*")){
             chain.doFilter(request, response);
             return;
         }
