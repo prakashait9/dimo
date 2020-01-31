@@ -29,11 +29,11 @@ export class DashboardService {
       'test': 'test',
       'Access-Control-Allow-Headers': 'Content-Type',
     }
-    
-    const requestOptions = {                                                                                                                                                                                 
-      headers: new Headers(headerDict), 
+
+    const requestOptions = {
+      headers: new Headers(headerDict),
     };
-    return this.http.get(`http://localhost:8080/api/getbygenre?limit=4`,{headers: new HttpHeaders(headerDict)});
+    return this.http.get(`/api/getbygenre?limit=4`,{headers: new HttpHeaders(headerDict)});
   }
 }
 
