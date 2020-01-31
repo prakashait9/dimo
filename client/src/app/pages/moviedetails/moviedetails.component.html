@@ -81,7 +81,7 @@
             <h3>Release Date : {{movie.releaseDate | date: 'MMM, yyyy'}}</h3>
 
             <h3>
-              Language : <a *ngFor="let lang of movie.origLang" class="label label-info m-r-md languageBorder">
+              Language : <a *ngFor="let lang of movie.spoken_lang" class="label label-info m-r-md languageBorder">
               {{lang.name}}</a>
             </h3>
 
