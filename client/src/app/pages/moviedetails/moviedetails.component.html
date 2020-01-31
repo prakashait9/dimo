@@ -1,0 +1,154 @@
+<div class="bs-example">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top bg-gradient-danger" style="height: 85px;">
+    <a href="#" class="navbar-brand">
+      <div class="col-lg-5 col-md-6">
+        <div class="logo"></div>
+      </div>
+    </a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"><i class="ni ni-align-center"></i></span>
+    </button>
+
+    <!-- <div class=" sticky-top center">
+      <form class="form-inline">
+        <input type="search" class="form-control mr-sm-2" placeholder="Search...">
+        <button type="submit" class="btn btn-outline-light"><i class="ni ni-circle-08"></i></button>
+      </form>
+    </div> -->
+
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav">
+        <!-- <a href="#" class="nav-item nav-link active">Home</a>
+                <a href="#" class="nav-item nav-link">Profile</a>
+                <a href="#" class="nav-item nav-link">Messages</a>
+                <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a> -->
+      </div>
+      <div class="navbar-nav ml-auto">
+        <!-- <a href="#" class="nav-item nav-link">Profile <i class="ni ni-circle-08"> </i></a> -->
+        <a href="#" class="nav-item nav-link" (click)="logout()">Logout <i class="ni ni-button-power"></i> </a>
+      </div>
+    </div>
+  </nav>
+    <!-- <nav class="navbar navbar-expand-md navbar-dark bg-darker sticky-top mt-2">
+        <a href="#" class="navbar-brand"><div class="col-lg-5 col-md-6">
+          <div class="logo"></div>
+        </div></a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"><i class="ni ni-align-center"></i></span>
+        </button>
+
+        <div class="sticky-top center">
+          <form class="form-inline">
+              <input type="search" class="form-control mr-sm-2" placeholder="Search...">
+              <button type="submit" class="btn btn-outline-light"><i class="ni ni-spaceship"></i></button>
+          </form>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="#" class="nav-item nav-link active">Home</a>
+                <a href="#" class="nav-item nav-link">Profile</a>
+                <a href="#" class="nav-item nav-link">Messages</a>
+                <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
+            </div>
+            <div class="navbar-nav ml-auto">
+
+                <a class="av-item nav-link">Welcome {{userName}}</a>
+
+                <a href="#" class="nav-item nav-link" data-toggle="tooltip" data-placement="top" title="Profile"> <i class="ni ni-circle-08"> </i></a>
+                <a href="#" class="nav-item nav-link" data-toggle="tooltip" data-placement="top" title="Logout"> <i class="ni ni-button-power"></i> </a>
+            </div>
+        </div>
+    </nav> -->
+
+
+    <!-- Movie Details Content -->
+
+		<div class="jumbotron m-5">
+
+      <div class="row" *ngIf="movie">
+        <div class="col-md-3">
+          <img src="{{movie.poster}}" alt="" class="thumbnail">
+          <p>
+            <a *ngIf="movie.homepage" href="{{movie.homepage}}" class="btn btn-info btn-block" target="_blank">Visit Movies Website</a>
+          </p>
+        </div>
+        <div class="col-md-8">
+          <h1 class="movieName">{{movie.origTitle}}</h1>
+
+            <h3>Release Date : {{movie.releaseDate | date: 'MMM, yyyy'}}</h3>
+
+            <h3>
+              Language : <a *ngFor="let lang of movie.origLang" class="label label-info m-r-md languageBorder">
+              {{lang.name}}</a>
+            </h3>
+
+          <h3>
+            Genre : <a *ngFor="let genre of movie.genre" class="label label-info m-r-md genreBorder">
+              {{genre.name}}
+            </a>
+          </h3>
+
+          <p class="bordered">{{movie.overview}}</p>
+
+          <!--Casts-->
+          <!-- <div class="row is-flex" *ngIf="cast && cast.length > 0">
+            <div class="col-md-12">
+              <h3 class="text-center">Cast</h3>
+            </div>
+            <div class="col-md-3" *ngFor="let actor of cast">
+              <div class="thumbnail">
+                <img src="https://image.tmdb.org/t/p/w500/{{actor.profile_path}}" alt="">
+                <div class="caption">
+                  <h6 class="text-center"><a routerLink="/actor/{{actor.id}}">{{actor.name}}</a></h6>
+                </div>
+              </div >
+            </div>
+          </div> -->
+          <!--Casts-->
+
+        </div>
+      </div>
+
+      <!--Trailer-->
+      <!-- <div class="row" *ngIf="video">
+        <div class="col-md-8 col-md-offset-2">
+          <h2>{{video.name}}</h2>
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" [src]="video.url"></iframe>
+          </div>
+        </div>
+      </div> -->
+      <!--Trailer-->
+
+
+      <!--Similar Movies-->
+      <!-- <div class="row is-flex" *ngIf="similarMovies && similarMovies.length > 0">
+        <div class="col-md-12">
+          <h2>Similar Movies</h2>
+        </div>
+        <div class="col-md-2" *ngFor="let movie of similarMovies">
+          <movie-card [movie]="movie"></movie-card>
+        </div>
+      </div> -->
+      <!--Similar Movies-->
+
+
+      <!-- Reviews -->
+      <!-- <div class="row" *ngIf="reviews && reviews.length > 0">
+        <div class="col-md-12">
+          <h2>Reviews</h2>
+        </div>
+        <div class="col-md-6" *ngFor="let review of reviews">
+          <blockquote>
+            <p class="text-justify">{{review.content}}</p>
+            <footer><cite title="{{review.author}}"><a href="{{review.url}}" target="_blank">{{review.author}}</a></cite></footer>
+          </blockquote>
+        </div>
+      </div> -->
+      <!-- Reviews -->
+
+    	</div >
+</div>

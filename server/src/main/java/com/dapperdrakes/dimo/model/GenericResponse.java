@@ -8,6 +8,7 @@ import org.springframework.validation.ObjectError;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class GenericResponse {
@@ -92,5 +93,22 @@ public class GenericResponse {
 
     public void setError_message(final Object error_message) {
         this.error_message = error_message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GenericResponse that = (GenericResponse) o;
+        return success == that.success &&
+                Objects.equals(timestamp, that.timestamp) &&
+                Objects.equals(error, that.error) &&
+                Objects.equals(data, that.data) &&
+                Objects.equals(error_message, that.error_message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(success, timestamp, error, data, error_message);
     }
 }

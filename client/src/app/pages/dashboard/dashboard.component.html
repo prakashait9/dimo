@@ -1,9 +1,76 @@
+<div class="bs-example">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top bg-gradient-danger" style="height: 85px;">
+    <a href="#" class="navbar-brand">
+      <div class="col-lg-5 col-md-6">
+        <div class="logo"></div>
+      </div>
+    </a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"><i class="ni ni-align-center"></i></span>
+    </button>
 
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="assets/img/theme/img-1-1000x900.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+    <!-- <div class=" sticky-top center">
+      <form class="form-inline">
+        <input type="search" class="form-control mr-sm-2" placeholder="Search...">
+        <button type="submit" class="btn btn-outline-light"><i class="ni ni-circle-08"></i></button>
+      </form>
+    </div> -->
+
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav">
+        <!-- <a href="#" class="nav-item nav-link active">Home</a>
+                <a href="#" class="nav-item nav-link">Profile</a>
+                <a href="#" class="nav-item nav-link">Messages</a>
+                <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a> -->
+      </div>
+      <div class="navbar-nav ml-auto">
+        <!-- <a href="#" class="nav-item nav-link">Profile <i class="ni ni-circle-08"> </i></a> -->
+        <a href="#" class="nav-item nav-link" (click)="logout()">Logout <i class="ni ni-button-power"></i> </a>
+      </div>
+    </div>
+  </nav>
+
+<div class="spinner" id="loader">
+
+</div>
+
+  <div class="genre-list">
+    <div *ngFor="let genre of favouriteGenreMoviesForDisplay" class="genre shadow">
+      <div class="genre-title row justify-content-between">
+        <div class="title h2 font-weight-bold mb-0">{{genre.genre}}</div>
+        <!-- <div class="see-all btn btn-sm btn-primary">See All</div> -->
+      </div>
+      <div class="movies-list row">
+        <div *ngFor="let movie of genre.movie" class="movie col-sm">
+          <!-- <div *ngIf="movie.title" [routerLink]="['/movie', movie.id]"> -->
+            <div *ngIf="movie.title" [routerLink]="['/moviedetails']" [queryParams]= "{ movieId: movie.id}">
+
+            <div class="container">
+              <!-- Normal Demo-->
+              <div class="column">
+                <!-- Post-->
+                <div class="post-module">
+                  <!-- Thumbnail-->
+                  <div class="thumbnail">
+                    <img src={{movie.poster}} />
+                  </div>
+                  <!-- Post Content-->
+                  <div class="post-content">
+                    <h1 class="title">{{movie.title}}</h1>
+                    <h2 class="sub_title">{{movie.tagline}}</h2>
+                    <p class="description">{{movie.overview}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- <img class="movie-image" src="http://www.theprintworks.com/wp-content/themes/psBella/assets/img/film-poster-placeholder.png" alt="Movie image">
+              <div class="movie-title">{{movie.title}}</div> -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>

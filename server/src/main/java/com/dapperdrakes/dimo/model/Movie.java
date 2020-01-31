@@ -6,7 +6,10 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Document(collection = "Movies")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie implements java.io.Serializable{
 
 	@Id
@@ -27,6 +30,19 @@ public class Movie implements java.io.Serializable{
 	private Integer voteCount;
 	private List<Genre> genre;
 	private List<Keywords> keyword;
+	private List<ProdCompany> prodComp;
+	private List<ProdCountry> prodCount;
+	private List<SpokenLang> spoken_lang;
+	
+	private String poster;
+	public String getPoster() {
+		return poster;
+	}
+
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -107,10 +123,7 @@ public class Movie implements java.io.Serializable{
 		return spoken_lang;
 	}
 
-	private List<ProdCompany> prodComp;
-	private List<ProdCountry> prodCount;
-	private List<SpokenLang> spoken_lang;
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
