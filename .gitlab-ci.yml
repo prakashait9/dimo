@@ -46,16 +46,16 @@ cache:
 # Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
 # For `master` branch run `mvn deploy` automatically.
 
-test:
-  stage: test
-  script:
-    - 'cd client'
-    - 'npm install'
-    - 'ng test'
-    - 'cd ..'
-    - 'cd server'
-    - 'mvn $MAVEN_CLI_OPTS test'
-    - 'cd ..'
+# test:
+#   stage: test
+#   script:
+#     - 'cd client'
+#     - 'npm install'
+#     - 'ng test'
+#     - 'cd ..'
+#     - 'cd server'
+#     - 'mvn $MAVEN_CLI_OPTS test'
+#     - 'cd ..'
 
 
 deploy-server:
