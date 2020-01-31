@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    document.getElementById("loader").style.display = "block";
     this.body = document.getElementsByTagName('body')[0];
     this.body.classList.remove('bg-default');
     this.body.classList.add('grey-background');
@@ -41,34 +42,39 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getMoviesByPreferredGenres().
       subscribe(
         genres => {
-          this.favouriteGenreMoviesComplete = [...genres];
-          genres.forEach(genre => {
-            genre.movies = genre.movies.splice(0, 4);
-            while (genre.movies.length < 4) {
-              genre.movies.push({
-                title: null,
-                movieid: null,
-                budget: null,
-                homepage: null,
-                origLang: null,
-                origTitle: null,
-                overview: null,
-                popularity: null,
-                releaseDate: null,
-                revenue: null,
-                runtime: null,
-                status: null,
-                tagline: null,
-                voteAverage: null,
-                voteCount: null,
-                genre: null,
-                keyword: null
-              });
-            }
-            console.log(genre);
+          // this.favouriteGenreMoviesComplete = [...genres];
+          // genres.forEach(genre => {
+          //   genre.movies = genre.movies.splice(0, 4);
+          //   while (genre.movies.length < 4) {
+          //     genre.movies.push({
+          //       title: null,
+          //       movieid: null,
+          //       budget: null,
+          //       homepage: null,
+          //       origLang: null,
+          //       origTitle: null,
+          //       overview: null,
+          //       popularity: null,
+          //       releaseDate: null,
+          //       revenue: null,
+          //       runtime: null,
+          //       status: null,
+          //       tagline: null,
+          //       voteAverage: null,
+          //       voteCount: null,
+          //       genre: null,
+          //       keyword: null
+          //     });
+          //   }
+          //   console.log(genre);
 
-          });
-          this.favouriteGenreMoviesForDisplay = genres;
+          // });
+          var genreArr = [];
+          Object.keys(genres).map((id)=>{
+            genreArr.push(genres[id]);
+          })
+          this.favouriteGenreMoviesForDisplay = genreArr;
+          document.getElementById("loader").style.display = "none";
         },
         error => {
           console.log('error', error);
@@ -83,6 +89,10 @@ export class DashboardComponent implements OnInit {
     // });
   }
 
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['/']);
+  }
 
   navigateToLoginPageIfEmptyToken(){
     var token = localStorage.getItem("id_token");
