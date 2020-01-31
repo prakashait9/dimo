@@ -23,13 +23,14 @@
                 <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a> -->
             </div>
             <div class="navbar-nav ml-auto">
-                <a href="#" class="nav-item nav-link">Profile <i class="ni ni-circle-08"> </i></a>
-                <a href="#" class="nav-item nav-link">Logout <i class="ni ni-button-power"></i> </a>
+
+                <a class="av-item nav-link">Welcome {{userName}}</a>
+
+                <a href="#" class="nav-item nav-link" data-toggle="tooltip" data-placement="top" title="Profile"> <i class="ni ni-circle-08"> </i></a>
+                <a href="#" class="nav-item nav-link" data-toggle="tooltip" data-placement="top" title="Logout"> <i class="ni ni-button-power"></i> </a>
             </div>
         </div>
     </nav>
-
-
 
 
     <!-- Movie Details Content -->
@@ -61,7 +62,6 @@
 
           <p class="bordered">{{movie.overview}}</p>
 
-
           <!--Casts-->
           <!-- <div class="row is-flex" *ngIf="cast && cast.length > 0">
             <div class="col-md-12">
@@ -78,10 +78,8 @@
           </div> -->
           <!--Casts-->
 
-
         </div>
       </div>
-
 
       <!--Trailer-->
       <!-- <div class="row" *ngIf="video">
@@ -121,8 +119,5 @@
       </div> -->
       <!-- Reviews -->
 
-
     	</div >
-
-
 </div>
