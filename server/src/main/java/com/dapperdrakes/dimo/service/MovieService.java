@@ -15,6 +15,8 @@ import com.dapperdrakes.dimo.util.ValidationUtility;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mongodb.client.DistinctIterable;
 
+import com.dapperdrakes.dimo.error.MovieNotFoundException;
+import com.dapperdrakes.dimo.model.MovieDetailDTO;
 import org.dhatim.fastexcel.reader.ReadableWorkbook;
 import org.dhatim.fastexcel.reader.Row;
 import org.dhatim.fastexcel.reader.Sheet;
@@ -51,8 +53,8 @@ public class MovieService {
 	public GenericResponse create(MultipartFile file) throws IOException {
 		return parseExcel(file);
 	}
-	
-	
+
+
 	public GenericResponse getMoviesGroupedByGenre(Long limit) {
 		DistinctIterable<String> genre = mongoTemplate.getCollection("Movies").distinct("genre.name",String.class);
 	    PageRequest request = PageRequest.of(0, limit.intValue(), Sort.by(Sort.Direction.DESC, "popularity"));
@@ -64,16 +66,16 @@ public class MovieService {
 	    	response.add(movieGroupByGenreDto);
 	    });
 		return new GenericResponse(response);
-		
-		
+
+
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 
 	private GenericResponse parseExcel(MultipartFile file) throws IOException {
 		ExcelParser excelParser = new ExcelParser(restTemplate);
@@ -107,7 +109,7 @@ public class MovieService {
 		query.fields().include("poster");
 		query.fields().include("popularity");
 		return new GenericResponse(mongoTemplate.find(query, Movie.class));
-		
+
 	}
 
 	public Long getCount() {
@@ -118,7 +120,16 @@ public class MovieService {
 		return mongoTemplate.findAll(Movie.class);
 	}
 
-	
+	public GenericResponse getMovieById(int id) throws MovieNotFoundException {
+		Movie movie = movieRepository.getMovieDetails(id);
+		if(movie == null){
+			throw new MovieNotFoundException("Movie with id: " + id + " does not exist");
+		}
+		MovieDetailDTO movieDetailDTO = new MovieDetailDTO(movie);
+		return new GenericResponse(movieDetailDTO);
+	}
+
+
 
 	public GenericResponse getSortedMovie(String name) {
 		GenericResponse genericResponse = new GenericResponse();
@@ -127,6 +138,6 @@ public class MovieService {
 		return genericResponse;
 	}
 
-	
+
 
 }

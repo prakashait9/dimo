@@ -13,15 +13,15 @@ import com.dapperdrakes.dimo.model.Movie;
 @Repository
 public interface MovieRepository extends MongoRepository<Movie, Long> {
 	
-	
-	
+
+
 	@Query("{origTitle:{'$regex' : ?0 , $options: 'i'}}")
     public List<Movie> findByNameQuery(String name, Sort sort);
-	
-	@Query(value = "{'genre.name' : ?0}",fields = "{_id:1,titli:1,overview:1,tagline:1,popularity:1,poster:1}")
+
+	@Query(value = "{'genre.name' : ?0}",fields = "{_id:1,title:1,overview:1,tagline:1,popularity:1,poster:1}")
     public List<Movie> findByGenre(String name, Pageable pageable);
-	
+
+	@Query(value="{_id : ?0}",fields="{_id:1,origTitle:1,releaseDate:1,spoken_lang:1,runtime:1,genre:1,overview:1,poster:1}")
+    public Movie getMovieDetails(int mid);
 
 }
-	
-	
