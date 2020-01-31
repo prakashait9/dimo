@@ -40,7 +40,7 @@ export class MoviedetailsComponent implements OnInit {
       error => {
         console.log("error");
         this.toaster.info('', 'Please try again!!', { timeOut: 3000 });
-        this.aviagateToDashboard();
+        this.naviagateToDashboard();
       });
     }
 
