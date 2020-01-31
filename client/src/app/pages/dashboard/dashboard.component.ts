@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
 import * as $ from 'jquery';
-
 import { Movie } from '../../model/movie.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   favouriteGenreMoviesComplete: Object[] = []; //to be used later for 'See All' functionality
   constructor(
     private dashboardService: DashboardService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit {
     this.body.classList.add('grey-background');
     this.getMoviesByPreferredGenres();
     this.initiateHoverWatch();
+    this.navigateToLoginPageIfEmptyToken()
   }
 
   ngAfterViewInit(): void {
@@ -81,4 +83,11 @@ export class DashboardComponent implements OnInit {
     // });
   }
 
+
+  navigateToLoginPageIfEmptyToken(){
+    var token = localStorage.getItem("id_token");
+    if(token == null){
+      this.router.navigate(['/']);
+    }
+  }
 }

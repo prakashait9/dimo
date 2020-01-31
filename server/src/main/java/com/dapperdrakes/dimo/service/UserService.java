@@ -27,7 +27,7 @@ public class UserService implements IUserService {
     @Override
     public DiMoUser registerNewUserAccount(final UserDto accountDto) {
         if (emailExists(accountDto.getEmail())) {
-            throw new UserAlreadyExistException("There is an account with that email adress: " + accountDto.getEmail());
+            throw new UserAlreadyExistException("There is an account with that email address: " + accountDto.getEmail());
         }
          return userRepository.save(new DiMoUser(accountDto));
     }

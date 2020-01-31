@@ -17,13 +17,15 @@ export class LoginComponent implements OnInit {
   signupForm: FormGroup;
   loginForm: FormGroup;
   submitted = false;
+  loginSubmitted = false;
   loginTab;
   signUpTab;
   loginLink;
   signUpLink;
   test: Date = new Date();
   body;
-
+  loginError = '';
+  signupError = '';
   users: any = [];
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +35,12 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    var token = localStorage.getItem("id_token");
+    if (token != null) {
+      this.router.navigate(['/dashboard']);
+    }
+
 
     this.loginTab = document.getElementById('logintab');
     this.signUpTab = document.getElementById('signuptab');
@@ -49,70 +57,117 @@ export class LoginComponent implements OnInit {
         Validators.maxLength(50)]
       ],
       'lastName': ['',
-        [Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(50)]
+        []
       ],
       email: ['',
         [Validators.required,
-        Validators.email]
+        Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+        Validators.maxLength(256)]
       ],
       password: ['',
         [Validators.required,
-        Validators.minLength(6)]
+        Validators.pattern(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/),
+        Validators.minLength(8),
+        Validators.maxLength(30)]
       ],
       confirmPassword: ['',
         Validators.required
       ],
     }, {
-        validator: MustMatch('password', 'confirmPassword')
-      });
+      validator: MustMatch('password', 'confirmPassword')
+    });
 
     this.loginForm = this.formBuilder.group({
       email: ['',
         [Validators.required,
-        Validators.email]
+        Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+        Validators.maxLength(256)]
       ],
       password: ['', [
-        Validators.required]
+        Validators.required,
+        Validators.maxLength(30)]
       ]
     });
-
-
   }
 
   get user() { return this.signupForm.controls; }
 
+  get loginUser() { return this.loginForm.controls; }
+
 
   onSubmit() {
+
+    this.signupError = '';
     this.submitted = true;
     if (this.signupForm.invalid) {
 
       return;
     }
-
     this.loginService.signupUser(this.signupForm.value)
       //.pipe(first())
       .subscribe(
         data => {
+          // set jwt token in local storage
+          localStorage.setItem('id_token', data["data"]["token"]);
           // this.alertService.success('Registration successful', true);
           // this.router.navigate(['/login']);
-          console.log("Success");
           this.toastr.success('', 'Hurray! Sign up Succesfull!', { timeOut: 3000 });
           this.router.navigate(['/dashboard']);
         },
         error => {
           // this.alertService.error(error);
           //  this.loading = false;
-          console.log("error");
-          this.toastr.error('', 'Please try again!!', { timeOut: 3000 });
-          //  this.router.navigate(['/dashboard']);
+          if (error["status"] == 0) {
+            this.signupError = 'Service Unavailable. Please contact site administrator.';
+           }
+          else if (error["status"] == 401) {
+             this.signupError = 'Invalid Email or Password';
+
+          }
+          else {
+              this.signupError = error["error"]["error_message"];
+           }
+
         });
 
   }
 
+  onLoginSubmit() {
+
+    this.loginError = "";
+    this.loginSubmitted = true;
+    if (this.loginForm.invalid) {
+
+      return;
+    }
+
+    this.loginService.loginUser(this.loginForm.value)
+
+      .subscribe(
+        data => {
+          // set jwt token in local storage
+          localStorage.setItem('id_token', data["data"]["token"]);
+          this.toastr.success('', 'Hurray! Login Succesfull!', { timeOut: 3000 });
+          this.router.navigate(['/dashboard']);
+        },
+        error => {
+          if (error["status"] == 0) {
+            this.loginError = "Service Unavailable. Please contact site administrator.";
+          }
+          else if (error["status"] == 401) {
+            this.loginError = "Invalid Email or Password.";
+          }
+          else {
+            this.loginError= error["error"]["error_message"];
+          }
+        });
+
+
+  } // End of onLoginSubmit
+
   selectTab(tabName) {
-    console.log(tabName);
+
+
     if (tabName == 'login') {
       this.loginTab.style.display = 'block';
       this.signUpLink.classList.add('active');
