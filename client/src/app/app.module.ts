@@ -26,7 +26,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    MoviedetailsComponent
+    MoviedetailsComponent,
+    MovieComponent
   ],
   imports: [
     BrowserModule,

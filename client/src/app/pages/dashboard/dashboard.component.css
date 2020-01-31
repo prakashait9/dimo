@@ -134,14 +134,14 @@ input::-webkit-input-placeholder {
 }
 .post-module .thumbnail {
   background: #000000;
-  height: 400px;
+  height: inherit;
   overflow: hidden;
 }
 
 
 .post-module .thumbnail img {
   display: block;
-  width: 120%;
+  width: 100%;
   -webkit-transition: all 0.3s linear 0s;
   -moz-transition: all 0.3s linear 0s;
   -ms-transition: all 0.3s linear 0s;
@@ -151,6 +151,7 @@ input::-webkit-input-placeholder {
 .post-module .post-content {
   position: absolute;
   bottom: 0;
+  opacity: 0.9;
   background: #FFFFFF;
   width: 100%;
   padding: 30px;

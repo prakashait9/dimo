@@ -47,5 +47,9 @@ export class MoviedetailsComponent implements OnInit {
     naviagateToDashboard() {
       this.router.navigate(['/dashboard']);
     }
+    logout(){
+      localStorage.clear();
+      this.router.navigate(['/']);
+    }
 
 }

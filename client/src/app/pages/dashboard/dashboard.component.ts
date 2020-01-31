@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    console.log("ngafter_called");
     $('.post-module').hover(function() {
       $(this).find('.description').stop().animate({
         height: "toggle",
